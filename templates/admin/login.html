@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — Black Crown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="login-body">
+    <div class="login-page">
+        <div class="login-bg">
+            <div class="login-orb orb1"></div>
+            <div class="login-orb orb2"></div>
+            <div class="login-grid"></div>
+        </div>
+        <div class="login-card">
+            <div class="login-logo">
+                <span class="crown-symbol">♛</span>
+                <div>
+                    <span class="brand-main">BLACK CROWN</span>
+                    <span class="brand-sub">Panel Administrativo</span>
+                </div>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="admin-flash admin-flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('admin.login') }}" class="login-form">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" name="username" class="form-input" placeholder="admin" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" class="form-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-login">
+                    Ingresar al Panel →
+                </button>
+            </form>
+            <a href="{{ url_for('client.index') }}" class="back-site">← Volver al sitio</a>
+        </div>
+    </div>
+</body>
+</html>

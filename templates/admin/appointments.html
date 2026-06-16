@@ -1,0 +1,92 @@
+{% extends "partials/base_admin.html" %}
+{% block title %}Citas — Black Crown Admin{% endblock %}
+{% block page_title %}Gestión de Citas{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="filters-bar">
+    <form method="GET" action="{{ url_for('admin.appointments') }}" class="filters-form">
+        <select name="status" class="filter-input" onchange="this.form.submit()">
+            <option value="">Todos los estados</option>
+            <option value="pendiente" {% if status_filter == 'pendiente' %}selected{% endif %}>Pendiente</option>
+            <option value="confirmada" {% if status_filter == 'confirmada' %}selected{% endif %}>Confirmada</option>
+            <option value="completada" {% if status_filter == 'completada' %}selected{% endif %}>Completada</option>
+            <option value="cancelada" {% if status_filter == 'cancelada' %}selected{% endif %}>Cancelada</option>
+        </select>
+        <input type="date" name="date" value="{{ date_filter }}" class="filter-input" onchange="this.form.submit()">
+        {% if status_filter or date_filter %}
+        <a href="{{ url_for('admin.appointments') }}" class="btn-clear">✕ Limpiar filtros</a>
+        {% endif %}
+    </form>
+    <span class="results-count">{{ appointments|length }} cita(s)</span>
+</div>
+
+{% if appointments %}
+<div class="table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Barbero</th>
+                <th>Fecha & Hora</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for apt in appointments %}
+            <tr>
+                <td class="td-id">{{ apt.id }}</td>
+                <td class="td-client">
+                    <div class="client-cell">
+                        <div class="client-mini-avatar">{{ apt.client_name[:2].upper() }}</div>
+                        <div>
+                            <span class="client-name">{{ apt.client_name }}</span>
+                            <span class="client-phone">{{ apt.client_phone }}</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <span class="service-tag">{{ apt.service.name }}</span>
+                    <span class="price-tag">${{ '{:,.0f}'.format(apt.service.price) }}</span>
+                </td>
+                <td>{{ apt.barber.name }}</td>
+                <td class="td-datetime">
+                    <span>{{ apt.appointment_date.strftime('%d %b %Y') }}</span>
+                    <span class="time-tag">{{ apt.appointment_time }}</span>
+                </td>
+                <td>
+                    <span class="status-badge {{ apt.status_class() }}">{{ apt.status_label() }}</span>
+                </td>
+                <td class="td-actions">
+                    <div class="action-group">
+                        <form method="POST" action="{{ url_for('admin.update_appointment_status', appointment_id=apt.id) }}" class="inline-form">
+                            <select name="status" class="status-select" onchange="this.form.submit()">
+                                <option value="pendiente" {% if apt.status == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                                <option value="confirmada" {% if apt.status == 'confirmada' %}selected{% endif %}>Confirmar</option>
+                                <option value="completada" {% if apt.status == 'completada' %}selected{% endif %}>Completar</option>
+                                <option value="cancelada" {% if apt.status == 'cancelada' %}selected{% endif %}>Cancelar</option>
+                            </select>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.delete_appointment', appointment_id=apt.id) }}"
+                            onsubmit="return confirm('¿Eliminar esta cita?')" class="inline-form">
+                            <button type="submit" class="btn-delete" title="Eliminar">✕</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-page">
+    <span class="empty-icon">◷</span>
+    <h3>No hay citas</h3>
+    <p>No se encontraron citas con los filtros aplicados.</p>
+    <a href="{{ url_for('admin.appointments') }}" class="btn-primary">Ver todas las citas</a>
+</div>
+{% endif %}
+{% endblock %}

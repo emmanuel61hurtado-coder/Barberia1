@@ -1,0 +1,551 @@
+{% extends "partials/base_client.html" %}
+{% block title %}Black Crown — Barbería Urbana Premium Bogotá{% endblock %}
+
+{% block content %}
+
+<!-- ══════════════════════════════════════════
+     1. HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+    <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
+        <div class="hero-noise"></div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span> Abierto hoy · 9am – 7pm
+        </div>
+        <div class="title-bg-accent"></div>
+        <h1 class="hero-title">
+            <span class="hero-line hero-line-1">Tu Estilo</span>
+            <span class="hero-divider"></span>
+            <span class="hero-line hero-line-2">Tu Actitud</span>
+        </h1>
+        <p class="hero-sub">
+            Más que un corte. Una experiencia urbana diseñada para el hombre que define su propia regla.
+        </p>
+        <div class="hero-actions">
+            <a href="{{ url_for('client.book') }}" class="btn-primary btn-glow">
+                ✦ Reservar Ahora
+            </a>
+            <a href="#servicios" class="btn-ghost">
+                Ver Servicios ↓
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num" data-count="500">0</span><span class="stat-num">+</span>
+                <span class="stat-label">Clientes Felices</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num" data-count="8">0</span><span class="stat-num">+</span>
+                <span class="stat-label">Años de Experiencia</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num" data-count="4">0</span>
+                <span class="stat-label">Maestros Barberos</span>
+            </div>
+        </div>
+    </div>
+    <!-- Decorative animated barber pole with neon -->
+    <div class="hero-visual">
+        <div class="pole-container">
+            <div class="pole-neon"></div>
+            <div class="pole-particle"></div>
+            <div class="pole-particle"></div>
+            <div class="pole-particle"></div>
+            <div class="hero-pole">
+                <div class="pole-stripes"></div>
+                <div class="pole-glass"></div>
+            </div>
+            <div class="pole-cap pole-cap-top"></div>
+            <div class="pole-cap pole-cap-bottom"></div>
+            <div class="pole-crown">♛</div>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     2. SERVICIOS
+══════════════════════════════════════════ -->
+<section class="section" id="servicios">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">◆ Lo que hacemos</span>
+            <h2 class="section-title">Nuestros <em>Servicios</em></h2>
+            <p class="section-sub">Cada servicio con precio transparente. Sin sorpresas.</p>
+        </div>
+        <div class="services-showcase">
+            {% set icons = {'corte': '✂', 'barba': '◉', 'ritual': '◈', 'tratamiento': '◇'} %}
+            {% for service in services %}
+            <div class="showcase-card reveal" 
+                data-id="{{ service.id }}" 
+                data-name="{{ service.name }}" 
+                data-desc="{{ service.description }}" 
+                data-duration="{{ service.duration_minutes }}" 
+                data-category="{{ service.category }}" 
+                data-price="{{ '{:,.0f}'.format(service.price) }}"
+                {{ 'style="--delay:' ~ (loop.index0 * 80) ~ 'ms;"' | safe }}>
+                <div class="sc-left">
+                    <div class="sc-icon">{{ icons.get(service.category, '◇') }}</div>
+                    <div class="sc-info">
+                        <h3>{{ service.name }}</h3>
+                        <p>{{ service.description }}</p>
+                        <div class="sc-tags">
+                            <span class="sc-tag">⏱ {{ service.duration_minutes }} min</span>
+                            <span class="sc-tag sc-cat">{{ service.category }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sc-right">
+                    <div class="sc-price">
+                        <span class="sc-price-label">desde</span>
+                        <span class="sc-price-val">${{ '{:,.0f}'.format(service.price) }}</span>
+                        <span class="sc-price-currency">COP</span>
+                    </div>
+                    <a href="{{ url_for('client.book') }}?service={{ service.id }}" class="sc-btn">
+                        Reservar →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     3. GALERÍA
+══════════════════════════════════════════ -->
+<section class="section gallery-section" id="galeria">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">◆ Nuestro Trabajo</span>
+            <h2 class="section-title">La <em>Galería</em></h2>
+            <p class="section-sub">Resultados reales. Cada corte cuenta una historia.</p>
+        </div>
+        <!-- Filter tabs -->
+        <div class="gallery-tabs reveal">
+            <button class="gtab active" data-filter="all">Todos</button>
+            <button class="gtab" data-filter="fade">Fade</button>
+            <button class="gtab" data-filter="barba">Barba</button>
+            <button class="gtab" data-filter="antes-despues">Antes & Después</button>
+        </div>
+        <div class="gallery-grid">
+            <!-- Antes y Después 1 -->
+            <div class="gallery-item gi-before-after" data-cat="antes-despues fade">
+                <div class="ba-container">
+                    <div class="ba-before">
+                        <div class="ba-placeholder">
+                            <span class="ph-icon">✂</span>
+                            <span class="ph-label">ANTES</span>
+                            <div class="ph-lines">
+                                <div class="ph-line ph-l1"></div>
+                                <div class="ph-line ph-l2"></div>
+                                <div class="ph-line ph-l3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ba-after">
+                        <div class="ba-placeholder ba-after-ph">
+                            <span class="ph-icon">✦</span>
+                            <span class="ph-label">DESPUÉS</span>
+                            <div class="ph-lines">
+                                <div class="ph-line ph-l1 ph-neat"></div>
+                                <div class="ph-line ph-l2 ph-neat"></div>
+                                <div class="ph-line ph-l3 ph-neat"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ba-slider" id="baSlider1">
+                        <div class="ba-handle">⟺</div>
+                    </div>
+                </div>
+                <div class="gi-label">Fade + Diseño — Sebastián M.</div>
+            </div>
+
+            <!-- Trabajo 1 -->
+            <div class="gallery-item" data-cat="fade">
+                <div class="gi-visual gv-fade1">
+                    <div class="gv-content">
+                        <div class="gv-icon">✂</div>
+                        <span class="gv-title">High Fade</span>
+                        <span class="gv-sub">Degradado perfecto</span>
+                    </div>
+                    <div class="gi-overlay">
+                        <span>Fade Premium</span>
+                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trabajo 2 -->
+            <div class="gallery-item" data-cat="barba">
+                <div class="gi-visual gv-beard1">
+                    <div class="gv-content">
+                        <div class="gv-icon">◉</div>
+                        <span class="gv-title">Beard Ritual</span>
+                        <span class="gv-sub">Perfilado + aceites</span>
+                    </div>
+                    <div class="gi-overlay">
+                        <span>Barba Clásica</span>
+                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Antes y Después 2 -->
+            <div class="gallery-item gi-before-after" data-cat="antes-despues barba">
+                <div class="ba-container">
+                    <div class="ba-before">
+                        <div class="ba-placeholder">
+                            <span class="ph-icon">◉</span>
+                            <span class="ph-label">ANTES</span>
+                            <div class="ph-beard ph-beard-messy"></div>
+                        </div>
+                    </div>
+                    <div class="ba-after">
+                        <div class="ba-placeholder ba-after-ph">
+                            <span class="ph-icon">♛</span>
+                            <span class="ph-label">DESPUÉS</span>
+                            <div class="ph-beard ph-beard-clean"></div>
+                        </div>
+                    </div>
+                    <div class="ba-slider" id="baSlider2">
+                        <div class="ba-handle">⟺</div>
+                    </div>
+                </div>
+                <div class="gi-label">Ritual de Barba — Diego V.</div>
+            </div>
+
+            <!-- Trabajo 3 -->
+            <div class="gallery-item" data-cat="fade">
+                <div class="gi-visual gv-fade2">
+                    <div class="gv-content">
+                        <div class="gv-icon">◈</div>
+                        <span class="gv-title">Skin Fade</span>
+                        <span class="gv-sub">Transición cero</span>
+                    </div>
+                    <div class="gi-overlay">
+                        <span>Fade & Diseño</span>
+                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trabajo 4 -->
+            <div class="gallery-item" data-cat="fade barba">
+                <div class="gi-visual gv-combo">
+                    <div class="gv-content">
+                        <div class="gv-icon">✦</div>
+                        <span class="gv-title">Full Look</span>
+                        <span class="gv-sub">Corte + Barba</span>
+                    </div>
+                    <div class="gi-overlay">
+                        <span>Ritual Completo</span>
+                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-cta reveal">
+            <p>¿Quieres tu foto aquí? <a href="{{ url_for('client.book') }}" class="gold-link">Reserva tu cita →</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     4. BARBEROS
+══════════════════════════════════════════ -->
+<section class="section barbers-section" id="barberos">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">◆ El Equipo</span>
+            <h2 class="section-title">Maestros <em>Barberos</em></h2>
+            <p class="section-sub">Artesanos del estilo con años de experiencia y pasión por cada detalle.</p>
+        </div>
+        <div class="barbers-grid">
+            {% for barber in barbers %}
+            <div class="barber-card reveal" {{ 'style="--delay:' ~ (loop.index0 * 120) ~ 'ms;"' | safe }}>
+                <div class="barber-card-top">
+                    <div class="barber-avatar">{{ barber.avatar_initials }}</div>
+                    <div class="barber-badge-exp">{{ barber.experience_years }}a exp.</div>
+                </div>
+                <div class="barber-info">
+                    <h3>{{ barber.name }}</h3>
+                    <span class="barber-specialty">{{ barber.specialty }}</span>
+                    <p>{{ barber.bio }}</p>
+                </div>
+                <div class="barber-footer">
+                    <div class="barber-stars">★★★★★</div>
+                    <a href="{{ url_for('client.book') }}?barber={{ barber.id }}" class="barber-btn">
+                        Agendar →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     5. OPINIONES
+══════════════════════════════════════════ -->
+<section class="section reviews-section" id="opiniones">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">◆ Lo que dicen</span>
+            <h2 class="section-title">Opiniones <em>Reales</em></h2>
+            <p class="section-sub">Más de 500 clientes satisfechos. Estas son sus palabras.</p>
+        </div>
+        <!-- Rating summary -->
+        <div class="rating-summary reveal">
+            <div class="rating-big">
+                <span class="rating-num">5.0</span>
+                <div class="rating-stars-big">★★★★★</div>
+                <span class="rating-total">Calificación promedio</span>
+            </div>
+            <div class="rating-bars">
+                <div class="rbar"><span>5★</span><div class="rbar-track"><div class="rbar-fill" style="width:90%;"></div></div><span>90%</span></div>
+                <div class="rbar"><span>4★</span><div class="rbar-track"><div class="rbar-fill" style="width:8%;"></div></div><span>8%</span></div>
+                <div class="rbar"><span>3★</span><div class="rbar-track"><div class="rbar-fill" style="width:2%;"></div></div><span>2%</span></div>
+            </div>
+        </div>
+        <!-- Reviews carousel -->
+        <div class="reviews-track" id="reviewsTrack">
+            {% for review in reviews %}
+            <div class="review-card">
+                <div class="review-top">
+                    <div class="review-avatar">{{ review.client_name[:2].upper() }}</div>
+                    <div class="review-meta">
+                        <span class="review-name">{{ review.client_name }}</span>
+                        <span class="review-service">{{ review.service }}</span>
+                    </div>
+                    <div class="review-rating">
+                        {% for i in range(review.rating) %}★{% endfor %}
+                    </div>
+                </div>
+                <p class="review-text">"{{ review.comment }}"</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="reviews-nav">
+            <button class="rnav-btn" id="reviewPrev">←</button>
+            <div class="rnav-dots" id="reviewDots"></div>
+            <button class="rnav-btn" id="reviewNext">→</button>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     6. RESERVA EN TIEMPO REAL
+══════════════════════════════════════════ -->
+<section class="section booking-live-section" id="reserva">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">◆ Reserva Inteligente</span>
+            <h2 class="section-title">Agenda en <em>Tiempo Real</em></h2>
+            <p class="section-sub">Ve disponibilidad en vivo, elige tu barbero y confirma al instante.</p>
+        </div>
+        <div class="live-booking-widget reveal">
+            <!-- Left: Live availability -->
+            <div class="lbw-left">
+                <div class="lbw-header">
+                    <div class="live-dot-wrap"><span class="live-dot"></span> En vivo</div>
+                    <span class="lbw-title">Disponibilidad Hoy</span>
+                </div>
+                <!-- Barber selector -->
+                <div class="lbw-barbers">
+                    {% for barber in barbers %}
+                    <button class="lbw-barber-btn" data-barber="{{ barber.id }}" data-name="{{ barber.name }}">
+                        <span class="lbw-avatar">{{ barber.avatar_initials }}</span>
+                        <span class="lbw-bname">{{ barber.name.split()[0] }}</span>
+                    </button>
+                    {% endfor %}
+                </div>
+                <!-- Live info panel -->
+                <div class="lbw-info-panel" id="lbwPanel">
+                    <div class="lbw-hint">
+                        <span class="lbw-hint-icon">👆</span>
+                        <span>Selecciona un barbero para ver disponibilidad</span>
+                    </div>
+                </div>
+                <!-- Time slots -->
+                <div class="lbw-slots-wrap" id="lbwSlotsWrap" style="display:none">
+                    <div class="lbw-slots-label">Horarios disponibles</div>
+                    <div class="lbw-slots-grid" id="lbwSlotsGrid"></div>
+                    <div class="lbw-selected-info" id="lbwSelectedInfo"></div>
+                </div>
+            </div>
+            <!-- Right: Quick booking form -->
+            <div class="lbw-right">
+                <div class="lbw-form-header">
+                    <h3>Confirma tu Cita</h3>
+                    <p>Rellena tus datos y reserva en segundos</p>
+                </div>
+                <form action="{{ url_for('client.book') }}" method="POST" class="lbw-form" id="lbwForm">
+                    <input type="hidden" name="barber_id" id="lbwBarberId">
+                    <input type="hidden" name="service_id" id="lbwServiceId">
+                    <input type="hidden" name="appointment_date" id="lbwDate">
+                    <input type="hidden" name="appointment_time" id="lbwTime">
+
+                    <div class="lbw-form-group">
+                        <label>Fecha</label>
+                        <input type="date" id="lbwDatePicker" class="lbw-input" min="{{ today }}"
+                            onchange="lbwOnDateChange(this.value)">
+                    </div>
+                    <div class="lbw-form-group">
+                        <label>Servicio</label>
+                        <select id="lbwServicePicker" class="lbw-input" onchange="lbwOnServiceChange(this.value)">
+                            <option value="">— Elige un servicio —</option>
+                            {% for service in services %}
+                            <option value="{{ service.id }}" data-duration="{{ service.duration_minutes }}"
+                                data-price="{{ service.price }}">
+                                {{ service.name }} — ${{ '{:,.0f}'.format(service.price) }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="lbw-form-group">
+                        <label>Tu nombre *</label>
+                        <input type="text" name="client_name" class="lbw-input" placeholder="Nombre completo" required>
+                    </div>
+                    <div class="lbw-form-group">
+                        <label>WhatsApp *</label>
+                        <input type="tel" name="client_phone" class="lbw-input" placeholder="+57 300 000 0000" required>
+                    </div>
+                    <!-- Live summary -->
+                    <div class="lbw-summary" id="lbwSummary" style="display:none">
+                        <div class="lbw-sum-row"><span>Barbero</span><strong id="sumBarber">—</strong></div>
+                        <div class="lbw-sum-row"><span>Servicio</span><strong id="sumService">—</strong></div>
+                        <div class="lbw-sum-row"><span>Fecha & Hora</span><strong id="sumDateTime">—</strong></div>
+                        <div class="lbw-sum-row lbw-sum-price"><span>Total</span><strong id="sumPrice">—</strong></div>
+                    </div>
+                    <button type="submit" class="btn-primary lbw-submit" id="lbwSubmit" disabled>
+                        ♛ Confirmar Reserva
+                    </button>
+                    <p class="lbw-note">* Sin registro · Confirmación por WhatsApp</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     7. CONTACTO
+══════════════════════════════════════════ -->
+<section class="section contact-section" id="contacto">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">◆ Encuéntranos</span>
+            <h2 class="section-title">Visítanos <em>Hoy</em></h2>
+        </div>
+        <div class="contact-grid">
+            <!-- Contact info -->
+            <div class="contact-info reveal">
+                <div class="contact-item">
+                    <div class="ci-icon">📍</div>
+                    <div class="ci-text">
+                        <h4>Dirección</h4>
+                        <p>Calle 93 #15-23, Chapinero<br>Bogotá, Colombia</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-icon">🕐</div>
+                    <div class="ci-text">
+                        <h4>Horarios</h4>
+                        <p>Lunes – Viernes: 9:00am – 7:00pm<br>Sábado: 9:00am – 5:00pm<br>Domingo: Cerrado</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="ci-icon">📞</div>
+                    <div class="ci-text">
+                        <h4>Teléfono</h4>
+                        <p>+57 300 000 0000</p>
+                    </div>
+                </div>
+                <!-- WhatsApp CTA -->
+                <a href="https://wa.me/573000000000?text=Hola%20Black%20Crown!%20Quiero%20información%20sobre%20sus%20servicios."
+                   target="_blank" class="whatsapp-btn">
+                    <span class="wa-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </span>
+                    Escríbenos por WhatsApp
+                </a>
+                <!-- Social -->
+                <div class="social-links">
+                    <a href="#" class="social-btn" title="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="#" class="social-btn" title="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" class="social-btn" title="TikTok">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <!-- Map placeholder -->
+            <div class="contact-map reveal">
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.6766677786546!2d-74.05339492414958!3d4.676198295327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a1234567890%3A0x0!2sCalle%2093%2C%20Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-pin">
+                        <span class="map-pin-icon">♛</span>
+                        <span class="map-pin-label">Black Crown</span>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Calle+93+%2315-23+Bogota" target="_blank" class="map-btn">
+                    📍 Abrir en Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     8. SERVICE DETAILS MODAL
+══════════════════════════════════════════ -->
+<div class="service-modal-overlay" id="serviceModal" style="display: none;">
+    <div class="service-modal">
+        <button class="sm-close" id="smClose">✕</button>
+        <div class="sm-image" id="smImage"></div>
+        <div class="sm-content">
+            <h3 id="smTitle">Service Name</h3>
+            <div class="sm-tags">
+                <span id="smDuration"></span>
+                <span id="smCategory"></span>
+            </div>
+            <p id="smDesc"></p>
+            <div class="sm-footer">
+                <div class="sm-price">
+                    <small>DESDE</small> $<span id="smPriceVal"></span> <small>COP</small>
+                </div>
+                <a href="{{ url_for('client.book') }}" class="sm-btn" id="smBookBtn">Reservar →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Pass today's date to JS for the live booking widget
+const TODAY_DATE = "{{ today if today else '' }}";
+
+</script>
+<script src="{{ url_for('static', filename='js/index_extra.js') }}"></script>
+{% endblock %}

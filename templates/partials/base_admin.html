@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin — Black Crown{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-body">
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <span class="logo-crown">♛</span>
+        <div>
+            <span class="logo-main">BLACK CROWN</span>
+            <span class="logo-sub">Admin Panel</span>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="{{ url_for('admin.dashboard') }}" class="nav-item {% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+            <span class="nav-icon">▦</span> Dashboard
+        </a>
+        <a href="{{ url_for('admin.appointments') }}" class="nav-item {% if request.endpoint in ['admin.appointments', 'admin.update_appointment_status'] %}active{% endif %}">
+            <span class="nav-icon">◷</span> Citas
+        </a>
+        <a href="{{ url_for('admin.barbers') }}" class="nav-item {% if 'barber' in request.endpoint %}active{% endif %}">
+            <span class="nav-icon">✂</span> Barberos
+        </a>
+        <a href="{{ url_for('admin.services') }}" class="nav-item {% if 'service' in request.endpoint %}active{% endif %}">
+            <span class="nav-icon">◈</span> Servicios
+        </a>
+        <div class="nav-divider"></div>
+        <a href="{{ url_for('client.index') }}" class="nav-item" target="_blank">
+            <span class="nav-icon">↗</span> Ver Sitio
+        </a>
+        <a href="{{ url_for('admin.logout') }}" class="nav-item nav-logout">
+            <span class="nav-icon">⏻</span> Cerrar Sesión
+        </a>
+    </nav>
+</aside>
+
+<div class="admin-main">
+    <header class="admin-header">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+        <div class="header-user">
+            <span class="user-badge">♛</span>
+            <span>{{ current_user.username }}</span>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="admin-flash-container">
+        {% for category, message in messages %}
+        <div class="admin-flash admin-flash-{{ category }}">
+            {{ message }}
+            <button onclick="this.parentElement.remove()">×</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="admin-content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

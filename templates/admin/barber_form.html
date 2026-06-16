@@ -1,0 +1,46 @@
+{% extends "partials/base_admin.html" %}
+{% block title %}{% if barber %}Editar Barbero{% else %}Nuevo Barbero{% endif %} — Black Crown{% endblock %}
+{% block page_title %}{% if barber %}Editar Barbero{% else %}Nuevo Barbero{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <div class="form-card">
+        <form method="POST" class="admin-form">
+            <div class="form-group">
+                <label>Nombre Completo *</label>
+                <input type="text" name="name" class="form-input"
+                    value="{{ barber.name if barber else '' }}" required placeholder="Nombre del barbero">
+            </div>
+            <div class="form-group">
+                <label>Especialidad</label>
+                <input type="text" name="specialty" class="form-input"
+                    value="{{ barber.specialty if barber else '' }}" placeholder="Ej: Fades & Diseños">
+            </div>
+            <div class="form-group">
+                <label>Años de Experiencia</label>
+                <input type="number" name="experience_years" class="form-input"
+                    value="{{ barber.experience_years if barber else 1 }}" min="0" max="50">
+            </div>
+            <div class="form-group">
+                <label>Biografía</label>
+                <textarea name="bio" class="form-input form-textarea"
+                    placeholder="Descripción del barbero...">{{ barber.bio if barber else '' }}</textarea>
+            </div>
+            {% if barber %}
+            <div class="form-group form-check">
+                <label class="check-label">
+                    <input type="checkbox" name="is_active" {% if barber.is_active %}checked{% endif %}>
+                    <span>Barbero activo (visible en el sitio)</span>
+                </label>
+            </div>
+            {% endif %}
+            <div class="form-actions">
+                <a href="{{ url_for('admin.barbers') }}" class="btn-ghost">← Cancelar</a>
+                <button type="submit" class="btn-primary">
+                    {% if barber %}Guardar Cambios{% else %}Crear Barbero{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

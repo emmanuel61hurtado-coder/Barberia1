@@ -1,0 +1,58 @@
+{% extends "partials/base_admin.html" %}
+{% block title %}{% if service %}Editar Servicio{% else %}Nuevo Servicio{% endif %} — Black Crown{% endblock %}
+{% block page_title %}{% if service %}Editar Servicio{% else %}Nuevo Servicio{% endif %}{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <div class="form-card">
+        <form method="POST" class="admin-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nombre del Servicio *</label>
+                    <input type="text" name="name" class="form-input"
+                        value="{{ service.name if service else '' }}" required placeholder="Ej: Corte Premium">
+                </div>
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select name="category" class="form-input">
+                        {% for opt in [('corte','Corte'),('barba','Barba'),('ritual','Ritual'),('tratamiento','Tratamiento')] %}
+                        <option value="{{ opt[0] }}" {% if service and service.category == opt[0] %}selected{% endif %}>{{ opt[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea name="description" class="form-input form-textarea"
+                    placeholder="Descripción del servicio...">{{ service.description if service else '' }}</textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Precio (COP) *</label>
+                    <input type="number" name="price" class="form-input"
+                        value="{{ service.price if service else '' }}" required placeholder="45000" step="1000">
+                </div>
+                <div class="form-group">
+                    <label>Duración (minutos)</label>
+                    <input type="number" name="duration_minutes" class="form-input"
+                        value="{{ service.duration_minutes if service else 30 }}" min="10" max="180">
+                </div>
+            </div>
+            {% if service %}
+            <div class="form-group form-check">
+                <label class="check-label">
+                    <input type="checkbox" name="is_active" {% if service.is_active %}checked{% endif %}>
+                    <span>Servicio activo (visible en el sitio)</span>
+                </label>
+            </div>
+            {% endif %}
+            <div class="form-actions">
+                <a href="{{ url_for('admin.services') }}" class="btn-ghost">← Cancelar</a>
+                <button type="submit" class="btn-primary">
+                    {% if service %}Guardar Cambios{% else %}Crear Servicio{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

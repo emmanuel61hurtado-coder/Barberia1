@@ -1,0 +1,35 @@
+{% extends "partials/base_client.html" %}
+{% block title %}Barberos — Black Crown{% endblock %}
+
+{% block content %}
+<div class="inner-page-header">
+    <div class="container">
+        <span class="section-tag">✦ Nuestro Equipo</span>
+        <h1>Los <em>Maestros</em></h1>
+        <p>Artesanos del estilo con precisión y pasión.</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="barbers-detail-grid">
+            {% for barber in barbers %}
+            <div class="barber-detail-card">
+                <div class="bd-header">
+                    <div class="bd-avatar">{{ barber.avatar_initials }}</div>
+                    <div class="bd-title">
+                        <h2>{{ barber.name }}</h2>
+                        <span class="bd-specialty">{{ barber.specialty }}</span>
+                        <span class="bd-exp">{{ barber.experience_years }} años de experiencia</span>
+                    </div>
+                </div>
+                <p class="bd-bio">{{ barber.bio }}</p>
+                <a href="{{ url_for('client.book') }}?barber={{ barber.id }}" class="btn-primary">
+                    Agendar con {{ barber.name.split()[0] }} →
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

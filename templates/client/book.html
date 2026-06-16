@@ -1,0 +1,221 @@
+{% extends "partials/base_client.html" %}
+{% block title %}Reservar Cita — Black Crown{% endblock %}
+
+{% block content %}
+<div class="book-page">
+    <div class="book-header">
+        <div class="container">
+            <span class="section-tag">✦ Reserva Online</span>
+            <h1>Agenda Tu <em>Cita</em></h1>
+            <p>Sin registro. Sin complicaciones. Solo tu nombre, servicio y hora.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="book-layout">
+            <!-- FORM -->
+            <div class="book-form-wrap">
+                <form method="POST" action="{{ url_for('client.book') }}" class="book-form" id="bookForm">
+
+                    <!-- STEP 1: Choose service -->
+                    <div class="form-step active" id="step1">
+                        <div class="step-header">
+                            <span class="step-num">01</span>
+                            <div>
+                                <h3>Elige tu Servicio</h3>
+                                <p>¿Qué experiencia buscas hoy?</p>
+                            </div>
+                        </div>
+                        <div class="services-select-grid">
+                            {% for service in services %}
+                            <label class="service-option" for="svc_{{ service.id }}">
+                                <input type="radio" name="service_id" id="svc_{{ service.id }}" value="{{ service.id }}"
+                                    {% if request.args.get('service') == service.id|string %}checked{% endif %}>
+                                <div class="service-opt-content">
+                                    <div class="svc-icon">
+                                        {% if service.category == 'corte' %}✂{% elif service.category == 'barba' %}◉{% elif service.category == 'ritual' %}◈{% else %}◇{% endif %}
+                                    </div>
+                                    <div class="svc-details">
+                                        <span class="svc-name">{{ service.name }}</span>
+                                        <span class="svc-desc">{{ service.duration_minutes }} min</span>
+                                    </div>
+                                    <span class="svc-price">${{ '{:,.0f}'.format(service.price) }}</span>
+                                </div>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn-primary step-next" onclick="nextStep(2)">
+                            Continuar → Elegir Barbero
+                        </button>
+                    </div>
+
+                    <!-- STEP 2: Choose barber -->
+                    <div class="form-step" id="step2">
+                        <div class="step-header">
+                            <span class="step-num">02</span>
+                            <div>
+                                <h3>Elige tu Barbero</h3>
+                                <p>Nuestros maestros están listos para ti.</p>
+                            </div>
+                        </div>
+                        <div class="barbers-select-grid">
+                            {% for barber in barbers %}
+                            <label class="barber-option" for="brb_{{ barber.id }}">
+                                <input type="radio" name="barber_id" id="brb_{{ barber.id }}" value="{{ barber.id }}"
+                                    {% if request.args.get('barber') == barber.id|string %}checked{% endif %}>
+                                <div class="barber-opt-content">
+                                    <div class="barber-avatar-sm">{{ barber.avatar_initials }}</div>
+                                    <div class="barber-opt-info">
+                                        <span class="barber-opt-name">{{ barber.name }}</span>
+                                        <span class="barber-opt-spec">{{ barber.specialty }}</span>
+                                    </div>
+                                    <span class="barber-opt-exp">{{ barber.experience_years }}a</span>
+                                </div>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        <div class="step-btns">
+                            <button type="button" class="btn-ghost" onclick="prevStep(1)">← Atrás</button>
+                            <button type="button" class="btn-primary" onclick="nextStep(3)">Continuar → Fecha y Hora</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Date & Time -->
+                    <div class="form-step" id="step3">
+                        <div class="step-header">
+                            <span class="step-num">03</span>
+                            <div>
+                                <h3>Fecha y Hora</h3>
+                                <p>Escoge cuándo quieres verte increíble.</p>
+                            </div>
+                        </div>
+                        <div class="datetime-group">
+                            <div class="form-group">
+                                <label>Fecha</label>
+                                <input type="date" name="appointment_date" id="appointmentDate"
+                                    min="{{ now }}" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Hora disponible</label>
+                                <div class="slots-grid" id="slotsGrid">
+                                    <p class="slots-hint">Selecciona fecha y barbero primero</p>
+                                </div>
+                                <input type="hidden" name="appointment_time" id="appointmentTime" required>
+                            </div>
+                        </div>
+                        <div class="step-btns">
+                            <button type="button" class="btn-ghost" onclick="prevStep(2)">← Atrás</button>
+                            <button type="button" class="btn-primary" onclick="nextStep(4)">Continuar → Tus Datos</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Client data -->
+                    <div class="form-step" id="step4">
+                        <div class="step-header">
+                            <span class="step-num">04</span>
+                            <div>
+                                <h3>Tus Datos</h3>
+                                <p>Para confirmar tu reserva y contactarte.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre completo *</label>
+                            <input type="text" name="client_name" class="form-input" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono / WhatsApp *</label>
+                            <input type="tel" name="client_phone" class="form-input" placeholder="+57 300 000 0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo electrónico (opcional)</label>
+                            <input type="email" name="client_email" class="form-input" placeholder="tu@correo.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Notas adicionales (opcional)</label>
+                            <textarea name="notes" class="form-input form-textarea"
+                                placeholder="¿Algún estilo especial? ¿Algo que debamos saber?"></textarea>
+                        </div>
+                        <div class="step-btns">
+                            <button type="button" class="btn-ghost" onclick="prevStep(3)">← Atrás</button>
+                            <button type="submit" class="btn-primary btn-submit">
+                                ♛ Confirmar Reserva
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- SUMMARY PANEL -->
+            <div class="book-summary" id="bookSummary">
+                <div class="summary-card">
+                    <div class="summary-crown">♛</div>
+                    <h3>Resumen de tu Cita</h3>
+                    <div class="summary-items">
+                        <div class="summary-item" id="sum-service">
+                            <span class="sum-label">Servicio</span>
+                            <span class="sum-val" id="sum-service-val">—</span>
+                        </div>
+                        <div class="summary-item" id="sum-barber">
+                            <span class="sum-label">Barbero</span>
+                            <span class="sum-val" id="sum-barber-val">—</span>
+                        </div>
+                        <div class="summary-item" id="sum-date">
+                            <span class="sum-label">Fecha</span>
+                            <span class="sum-val" id="sum-date-val">—</span>
+                        </div>
+                        <div class="summary-item" id="sum-time">
+                            <span class="sum-label">Hora</span>
+                            <span class="sum-val" id="sum-time-val">—</span>
+                        </div>
+                        <div class="summary-price">
+                            <span>Total estimado</span>
+                            <span class="price-val" id="sum-price-val">—</span>
+                        </div>
+                    </div>
+                    <p class="summary-note">* El pago se realiza en el local. Te confirmaremos por WhatsApp.</p>
+                </div>
+
+                <!-- Progress steps -->
+                <div class="progress-steps">
+                    <div class="prog-step active" id="prog1">
+                        <div class="prog-dot">1</div>
+                        <span>Servicio</span>
+                    </div>
+                    <div class="prog-line" id="pline1"></div>
+                    <div class="prog-step" id="prog2">
+                        <div class="prog-dot">2</div>
+                        <span>Barbero</span>
+                    </div>
+                    <div class="prog-line" id="pline2"></div>
+                    <div class="prog-step" id="prog3">
+                        <div class="prog-dot">3</div>
+                        <span>Fecha</span>
+                    </div>
+                    <div class="prog-line" id="pline3"></div>
+                    <div class="prog-step" id="prog4">
+                        <div class="prog-dot">4</div>
+                        <span>Datos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const servicesData = {
+    {% for s in services %}
+    {{ s.id }}: { name: '{{ s.name }}', price: '{{ "${:,.0f}".format(s.price) }}' },
+    {% endfor %}
+};
+const barbersData = {
+    {% for b in barbers %}
+    {{ b.id }}: { name: '{{ b.name }}' },
+    {% endfor %}
+};
+</script>
+<script src="{{ url_for('static', filename='js/book.js') }}"></script>
+{% endblock %}

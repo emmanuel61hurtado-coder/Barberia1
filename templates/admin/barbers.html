@@ -1,0 +1,37 @@
+{% extends "partials/base_admin.html" %}
+{% block title %}Barberos — Black Crown Admin{% endblock %}
+{% block page_title %}Barberos{% endblock %}
+
+{% block content %}
+<div class="page-actions">
+    <a href="{{ url_for('admin.new_barber') }}" class="btn-primary">+ Agregar Barbero</a>
+</div>
+
+<div class="cards-grid">
+    {% for barber in barbers %}
+    <div class="admin-barber-card {% if not barber.is_active %}card-inactive{% endif %}">
+        <div class="abc-avatar">{{ barber.avatar_initials }}</div>
+        <div class="abc-info">
+            <h3>{{ barber.name }}</h3>
+            <span class="abc-specialty">{{ barber.specialty }}</span>
+            <span class="abc-exp">{{ barber.experience_years }} años de exp.</span>
+            <p class="abc-bio">{{ barber.bio[:80] }}...</p>
+        </div>
+        <div class="abc-status">
+            <span class="{% if barber.is_active %}badge-active{% else %}badge-inactive{% endif %}">
+                {% if barber.is_active %}Activo{% else %}Inactivo{% endif %}
+            </span>
+        </div>
+        <div class="abc-actions">
+            <a href="{{ url_for('admin.edit_barber', barber_id=barber.id) }}" class="btn-edit">Editar</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-page">
+        <span>✂</span>
+        <p>No hay barberos registrados.</p>
+        <a href="{{ url_for('admin.new_barber') }}" class="btn-primary">Agregar Barbero</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

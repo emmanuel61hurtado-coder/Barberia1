@@ -1,0 +1,112 @@
+{% extends "partials/base_admin.html" %}
+{% block title %}Dashboard — Black Crown Admin{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">◷</div>
+        <div class="stat-info">
+            <span class="stat-number">{{ today_appointments }}</span>
+            <span class="stat-label">Citas Hoy</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+            <span class="stat-number">{{ pending }}</span>
+            <span class="stat-label">Pendientes</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">✓</div>
+        <div class="stat-info">
+            <span class="stat-number">{{ completed }}</span>
+            <span class="stat-label">Completadas</span>
+        </div>
+    </div>
+    <div class="stat-card stat-gold">
+        <div class="stat-icon">$</div>
+        <div class="stat-info">
+            <span class="stat-number">${{ '{:,.0f}'.format(total_revenue) }}</span>
+            <span class="stat-label">Ingresos Totales</span>
+        </div>
+    </div>
+</div>
+
+<div class="dash-grid">
+    <!-- Today's appointments -->
+    <div class="dash-card">
+        <div class="card-header">
+            <h3>Citas de Hoy</h3>
+            <a href="{{ url_for('admin.appointments') }}" class="card-link">Ver todas →</a>
+        </div>
+        {% if today_list %}
+        <div class="today-list">
+            {% for apt in today_list %}
+            <div class="today-item">
+                <div class="today-time">{{ apt.appointment_time }}</div>
+                <div class="today-info">
+                    <span class="today-name">{{ apt.client_name }}</span>
+                    <span class="today-service">{{ apt.service.name }} — {{ apt.barber.name }}</span>
+                </div>
+                <span class="status-badge {{ apt.status_class() }}">{{ apt.status_label() }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <span>◷</span>
+            <p>No hay citas para hoy</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Recent activity -->
+    <div class="dash-card">
+        <div class="card-header">
+            <h3>Actividad Reciente</h3>
+            <span class="total-badge">{{ total_appointments }} total</span>
+        </div>
+        {% if recent_appointments %}
+        <div class="recent-list">
+            {% for apt in recent_appointments %}
+            <div class="recent-item">
+                <div class="recent-avatar">{{ apt.client_name[:2].upper() }}</div>
+                <div class="recent-info">
+                    <span class="recent-name">{{ apt.client_name }}</span>
+                    <span class="recent-meta">{{ apt.service.name }} · {{ apt.appointment_date.strftime('%d %b') }} {{ apt.appointment_time }}</span>
+                </div>
+                <span class="status-badge {{ apt.status_class() }}">{{ apt.status_label() }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <span>◈</span>
+            <p>Sin reservas aún</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Quick actions -->
+<div class="quick-actions">
+    <h3>Acciones Rápidas</h3>
+    <div class="actions-grid">
+        <a href="{{ url_for('admin.appointments') }}" class="action-btn">
+            <span>◷</span> Gestionar Citas
+        </a>
+        <a href="{{ url_for('admin.new_barber') }}" class="action-btn">
+            <span>✂</span> Nuevo Barbero
+        </a>
+        <a href="{{ url_for('admin.new_service') }}" class="action-btn">
+            <span>◈</span> Nuevo Servicio
+        </a>
+        <a href="{{ url_for('client.book') }}" class="action-btn" target="_blank">
+            <span>↗</span> Ver Reservas
+        </a>
+    </div>
+</div>
+{% endblock %}

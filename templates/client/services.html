@@ -1,0 +1,48 @@
+{% extends "partials/base_client.html" %}
+{% block title %}Servicios — Black Crown{% endblock %}
+
+{% block content %}
+<div class="inner-page-header">
+    <div class="container">
+        <span class="section-tag">✦ Lo que ofrecemos</span>
+        <h1>Nuestros <em>Servicios</em></h1>
+        <p>Cada ritual diseñado para llevar tu imagen al siguiente nivel.</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        {% set categories = [('corte','✂','Cortes'), ('barba','◉','Barba'), ('ritual','◈','Rituales'), ('tratamiento','◇','Tratamientos')] %}
+        {% for cat_key, cat_icon, cat_label in categories %}
+        {% set cat_services = services | selectattr('category', 'equalto', cat_key) | list %}
+        {% if cat_services %}
+        <div class="services-category">
+            <div class="cat-header">
+                <span class="cat-icon">{{ cat_icon }}</span>
+                <h2>{{ cat_label }}</h2>
+            </div>
+            <div class="services-list">
+                {% for service in cat_services %}
+                <div class="service-row">
+                    <div class="srow-left">
+                        <h3>{{ service.name }}</h3>
+                        <p>{{ service.description }}</p>
+                        <span class="srow-duration">⏱ {{ service.duration_minutes }} minutos</span>
+                    </div>
+                    <div class="srow-right">
+                        <span class="srow-price">${{ '{:,.0f}'.format(service.price) }}</span>
+                        <a href="{{ url_for('client.book') }}?service={{ service.id }}" class="btn-sm">Reservar</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <div class="section-cta">
+            <a href="{{ url_for('client.book') }}" class="btn-primary btn-large">Reservar Mi Cita Ahora →</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

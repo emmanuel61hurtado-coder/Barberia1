@@ -1,0 +1,54 @@
+{% extends "partials/base_client.html" %}
+{% block title %}¡Reserva Confirmada! — Black Crown{% endblock %}
+
+{% block content %}
+<div class="confirm-page">
+    <div class="confirm-bg">
+        <div class="confirm-orb"></div>
+    </div>
+    <div class="container">
+        <div class="confirm-card">
+            <div class="confirm-icon">♛</div>
+            <div class="confirm-badge">✓ Reserva Recibida</div>
+            <h1>¡Perfecto, {{ appointment.client_name.split()[0] }}!</h1>
+            <p class="confirm-sub">Tu cita ha sido registrada. Te contactaremos a <strong>{{ appointment.client_phone }}</strong> para confirmar.</p>
+
+            <div class="confirm-details">
+                <div class="confirm-row">
+                    <span class="c-label">✂ Servicio</span>
+                    <span class="c-val">{{ appointment.service.name }}</span>
+                </div>
+                <div class="confirm-row">
+                    <span class="c-label">◉ Barbero</span>
+                    <span class="c-val">{{ appointment.barber.name }}</span>
+                </div>
+                <div class="confirm-row">
+                    <span class="c-label">📅 Fecha</span>
+                    <span class="c-val">{{ appointment.appointment_date.strftime('%A %d de %B, %Y') }}</span>
+                </div>
+                <div class="confirm-row">
+                    <span class="c-label">⏰ Hora</span>
+                    <span class="c-val">{{ appointment.appointment_time }}</span>
+                </div>
+                <div class="confirm-row price-row">
+                    <span class="c-label">💰 Total</span>
+                    <span class="c-val c-price">${{ '{:,.0f}'.format(appointment.service.price) }}</span>
+                </div>
+            </div>
+
+            <div class="confirm-status status-{{ appointment.status }}">
+                Estado: <strong>{{ appointment.status_label() }}</strong>
+            </div>
+
+            <p class="confirm-note">
+                📍 Calle 93 #15-23, Bogotá &nbsp;·&nbsp; Te esperamos puntual
+            </p>
+
+            <div class="confirm-actions">
+                <a href="{{ url_for('client.index') }}" class="btn-ghost">← Volver al Inicio</a>
+                <a href="{{ url_for('client.book') }}" class="btn-primary">Otra Reserva →</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

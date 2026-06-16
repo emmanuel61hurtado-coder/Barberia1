@@ -26,7 +26,7 @@ body {
   background: var(--bg);
   color: var(--white);
   font-family: var(--font);
-  background-image: url('/static/img/urban_bg.png');
+  background-image: url('https://i.pinimg.com/736x/12/92/af/1292afe44c6f71ac3b0db0af68eedc02.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

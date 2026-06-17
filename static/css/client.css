@@ -477,66 +477,24 @@ em {
   display: flex; align-items: center;
   position: relative; overflow: hidden;
   padding-top: 80px;
-  /* Sculpture image as base layer */
-  background-image: url('/static/img/hero_sculpture.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
-  /* Multi-layer cinematic overlay:
-     1. Dark left veil for text legibility
-     2. Deep sepia-black vertical gradient top & bottom
-     3. Subtle warm tone to unify palette */
-  background:
-    linear-gradient(105deg,
-      rgba(4, 4, 6, 0.82) 0%,
-      rgba(4, 4, 6, 0.65) 40%,
-      rgba(4, 4, 6, 0.20) 70%,
-      rgba(4, 4, 6, 0.10) 100%
-    ),
-    linear-gradient(180deg,
-      rgba(4, 4, 6, 0.75) 0%,
-      rgba(4, 4, 6, 0.15) 25%,
-      rgba(4, 4, 6, 0.10) 60%,
-      rgba(4, 4, 6, 0.85) 100%
-    ),
-    linear-gradient(180deg,
-      rgba(30, 18, 8, 0.30) 0%,
-      rgba(30, 18, 8, 0.15) 50%,
-      rgba(30, 18, 8, 0.30) 100%
-    );
 }
 .hero-grid {
   position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.005) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.005) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255,255,255,0.008) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.008) 1px, transparent 1px);
   background-size: 80px 80px;
-  /* Very subtle so it doesn't fight the photo */
-  opacity: 0.5;
 }
 .hero-orb {
   position: absolute; border-radius: 50%;
   filter: blur(120px); -webkit-filter: blur(120px);
   pointer-events: none;
-  opacity: 0.25;
+  opacity: 0.4;
 }
-/* Orbs now serve as subtle warm accent lights */
-.orb-1 {
-  width: 600px; height: 600px;
-  top: -150px; right: 0;
-  background: rgba(180, 120, 40, 0.10);
-  animation: floatOrb1 25s infinite alternate;
-}
-.orb-2 {
-  width: 400px; height: 400px;
-  bottom: -100px; left: -100px;
-  background: rgba(30, 20, 8, 0.15);
-  animation: floatOrb2 20s infinite alternate;
-}
+.orb-1 { width: 500px; height: 500px; top: -200px; right: -100px; background: rgba(255,255,255,0.03); animation: floatOrb1 25s infinite alternate; }
+.orb-2 { width: 400px; height: 400px; bottom: -150px; left: -150px; background: rgba(255,255,255,0.02); animation: floatOrb2 20s infinite alternate; }
 
 @keyframes floatOrb1 {
   0% { transform: translate(0, 0) scale(1); }
@@ -549,28 +507,8 @@ em {
   100% { transform: translate(-30px, 30px) scale(1.15); }
 }
 
-/* Gold separator lines echoing the segmented style of the source photo */
-.hero-noise {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg,
-      transparent calc(33.33% - 1px),
-      rgba(212, 175, 55, 0.18) calc(33.33% - 1px),
-      rgba(212, 175, 55, 0.18) calc(33.33% + 1px),
-      transparent calc(33.33% + 1px)
-    ),
-    linear-gradient(180deg,
-      transparent calc(66.66% - 1px),
-      rgba(212, 175, 55, 0.12) calc(66.66% - 1px),
-      rgba(212, 175, 55, 0.12) calc(66.66% + 1px),
-      transparent calc(66.66% + 1px)
-    );
-  pointer-events: none;
-  z-index: 0;
-}
-
 .hero-content {
-  position: relative; z-index: 2;
+  position: relative; z-index: 1;
   max-width: 1200px; margin: 0 auto; padding: 0 40px;
   max-width: 750px; padding-left: 8vw;
 }
@@ -1625,7 +1563,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   .sc-btn { padding: 6px 12px; font-size: 10px; letter-spacing: 0.1em; border-radius: 5px; }
   .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
   .gi-before-after { grid-column: span 1; }
-  .hero-visual { display: none; }
+  .hero-bg::before { background-size: auto, contain; }
   .rating-summary { flex-direction: column; gap: 24px; padding: 20px; }
   .sc-price-val { font-size: 22px; }
   .gi-visual { height: 220px; }
@@ -1649,6 +1587,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   .stat-label { font-size: 10px; }
   .stat-divider { display: none; }
   .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 20px; }
+  .hero-bg::before { background-size: auto, contain; }
   .container { padding: 0 16px; }
   .section { padding: 48px 0; }
   .section-header { margin-bottom: 32px; }
@@ -1748,129 +1687,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
 .btn-glow { box-shadow: 0 4px 20px rgba(255,255,255,0.03); }
 .btn-glow:hover { box-shadow: 0 6px 25px rgba(255,255,255,0.06); }
 
-/* ── Animated Barber Pole (Neutral/Elegant) ── */
-.hero-visual {
-  position: absolute; right: 8vw; top: 50%; transform: translateY(-50%);
-  display: flex; flex-direction: column; align-items: center;
-  pointer-events: none;
-  z-index: 2;
-}
-.pole-container {
-  position: relative;
-  width: 40px;
-  height: 240px;
-}
-.pole-neon {
-  position: absolute;
-  inset: -6px;
-  border-radius: 12px;
-  background: conic-gradient(from 0deg, rgba(255,255,255,0.04), rgba(255,255,255,0.06), rgba(255,255,255,0.04));
-  animation: neonSpin 4s linear infinite;
-  filter: blur(8px);
-  opacity: 0.4;
-  z-index: 0;
-}
-@keyframes neonSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.hero-pole {
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow:
-    0 0 20px rgba(255,255,255,0.02);
-  z-index: 1;
-  background: rgba(0,0,0,0.2);
-}
-.pole-stripes {
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 10px,
-    rgba(255,255,255,0.18) 10px, rgba(255,255,255,0.18) 20px,
-    rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 30px
-  );
-  background-size: 200% 200%;
-  animation: spinStripes 1.5s linear infinite;
-  opacity: 0.6;
-}
-@keyframes spinStripes {
-  0% { background-position: 0 0; }
-  100% { background-position: 42px 42px; }
-}
-.pole-glass {
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(255,255,255,0.06) 20%,
-    rgba(255,255,255,0.02) 40%,
-    transparent 70%
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-.pole-cap {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 48px;
-  height: 10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%);
-  border-radius: 3px;
-  border: 1px solid rgba(255,255,255,0.06);
-  z-index: 3;
-}
-.pole-cap-top { top: -8px; }
-.pole-cap-bottom { bottom: -8px; }
-.pole-crown {
-  position: absolute;
-  top: -38px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
-  color: rgba(255,255,255,0.3);
-  z-index: 3;
-  animation: crownGlow 3s ease-in-out infinite;
-}
-@keyframes crownGlow {
-  0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
-  50% { opacity: 0.6; transform: translateX(-50%) scale(1.08); }
-}
-.pole-particle {
-  position: absolute;
-  width: 3px; height: 3px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  opacity: 0;
-  z-index: 0;
-}
-.pole-particle:nth-child(2) {
-  top: 15%; left: -18px;
-  animation: particleFloat 4s ease-in-out infinite;
-  animation-delay: 0s;
-}
-.pole-particle:nth-child(3) {
-  top: 60%; right: -16px;
-  width: 2px; height: 2px;
-  animation: particleFloat 4.5s ease-in-out infinite;
-  animation-delay: 1.5s;
-}
-.pole-particle:nth-child(4) {
-  top: 85%; left: -14px;
-  width: 2px; height: 2px;
-  animation: particleFloat 5s ease-in-out infinite;
-  animation-delay: 3s;
-}
-@keyframes particleFloat {
-  0%, 100% { opacity: 0; transform: translateY(0); }
-  50% { opacity: 0.5; transform: translateY(-16px); }
-}
+
 
 /* ═══════════════════════════════════════
    BARBER BACKGROUND PHOTOS
@@ -1883,9 +1700,12 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-   background-image: linear-gradient(rgba(6,7,9,0.55), rgba(6,7,9,0.55)), url('/static/img/hero_bg.png');
-  background-position: center;
-  background-size: cover;
+   background-image:
+     linear-gradient(90deg, rgba(6,7,9,0.88) 0%, rgba(6,7,9,0.5) 35%, rgba(6,7,9,0.15) 60%, rgba(6,7,9,0.35) 100%),
+     url('/static/img/hero_bg.png');
+  background-size: auto, cover;
+  background-position: 0 0, center;
+  background-repeat: repeat, no-repeat;
   pointer-events: none;
   z-index: 0;
 }

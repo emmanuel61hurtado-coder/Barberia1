@@ -477,25 +477,66 @@ em {
   display: flex; align-items: center;
   position: relative; overflow: hidden;
   padding-top: 80px;
+  /* Sculpture image as base layer */
+  background-image: url('/static/img/hero_sculpture.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(180deg, rgba(6,7,9,0.85) 0%, rgba(6,7,9,0.4) 30%, rgba(6,7,9,0.4) 70%, rgba(6,7,9,0.85) 100%);
+  /* Multi-layer cinematic overlay:
+     1. Dark left veil for text legibility
+     2. Deep sepia-black vertical gradient top & bottom
+     3. Subtle warm tone to unify palette */
+  background:
+    linear-gradient(105deg,
+      rgba(4, 4, 6, 0.82) 0%,
+      rgba(4, 4, 6, 0.65) 40%,
+      rgba(4, 4, 6, 0.20) 70%,
+      rgba(4, 4, 6, 0.10) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(4, 4, 6, 0.75) 0%,
+      rgba(4, 4, 6, 0.15) 25%,
+      rgba(4, 4, 6, 0.10) 60%,
+      rgba(4, 4, 6, 0.85) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(30, 18, 8, 0.30) 0%,
+      rgba(30, 18, 8, 0.15) 50%,
+      rgba(30, 18, 8, 0.30) 100%
+    );
 }
 .hero-grid {
   position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(255,255,255,0.008) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.008) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(255,255,255,0.005) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.005) 1px, transparent 1px);
   background-size: 80px 80px;
+  /* Very subtle so it doesn't fight the photo */
+  opacity: 0.5;
 }
 .hero-orb {
   position: absolute; border-radius: 50%;
   filter: blur(120px); -webkit-filter: blur(120px);
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.25;
 }
-.orb-1 { width: 500px; height: 500px; top: -200px; right: -100px; background: rgba(255,255,255,0.03); animation: floatOrb1 25s infinite alternate; }
-.orb-2 { width: 400px; height: 400px; bottom: -150px; left: -150px; background: rgba(255,255,255,0.02); animation: floatOrb2 20s infinite alternate; }
+/* Orbs now serve as subtle warm accent lights */
+.orb-1 {
+  width: 600px; height: 600px;
+  top: -150px; right: 0;
+  background: rgba(180, 120, 40, 0.10);
+  animation: floatOrb1 25s infinite alternate;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  bottom: -100px; left: -100px;
+  background: rgba(30, 20, 8, 0.15);
+  animation: floatOrb2 20s infinite alternate;
+}
 
 @keyframes floatOrb1 {
   0% { transform: translate(0, 0) scale(1); }
@@ -508,8 +549,28 @@ em {
   100% { transform: translate(-30px, 30px) scale(1.15); }
 }
 
+/* Gold separator lines echoing the segmented style of the source photo */
+.hero-noise {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      transparent calc(33.33% - 1px),
+      rgba(212, 175, 55, 0.18) calc(33.33% - 1px),
+      rgba(212, 175, 55, 0.18) calc(33.33% + 1px),
+      transparent calc(33.33% + 1px)
+    ),
+    linear-gradient(180deg,
+      transparent calc(66.66% - 1px),
+      rgba(212, 175, 55, 0.12) calc(66.66% - 1px),
+      rgba(212, 175, 55, 0.12) calc(66.66% + 1px),
+      transparent calc(66.66% + 1px)
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
 .hero-content {
-  position: relative; z-index: 1;
+  position: relative; z-index: 2;
   max-width: 1200px; margin: 0 auto; padding: 0 40px;
   max-width: 750px; padding-left: 8vw;
 }

@@ -480,9 +480,7 @@ em {
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 30% 50%, rgba(255,255,255,0.02) 0%, transparent 70%),
-    linear-gradient(180deg, #060709 0%, #0a0b0e 50%, #060709 100%);
+  background: linear-gradient(180deg, rgba(6,7,9,0.85) 0%, rgba(6,7,9,0.4) 30%, rgba(6,7,9,0.4) 70%, rgba(6,7,9,0.85) 100%);
 }
 .hero-grid {
   position: absolute; inset: 0;
@@ -1824,7 +1822,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://i.pinimg.com/736x/12/92/af/1292afe44c6f71ac3b0db0af68eedc02.jpg');
+   background-image: linear-gradient(rgba(6,7,9,0.55), rgba(6,7,9,0.55)), url('/static/img/hero_bg.png');
   background-position: center;
   background-size: cover;
   pointer-events: none;

@@ -17,11 +17,35 @@
         <div class="hero-badge">
             <span class="badge-dot"></span> Abierto hoy · 9am – 7pm
         </div>
-        <div class="title-bg-accent"></div>
-        <h1 class="hero-title">
-            <span class="hero-line hero-line-1">Tu Estilo</span>
-            <span class="hero-divider"></span>
-            <span class="hero-line hero-line-2">Tu Actitud</span>
+        <h1 class="hero-title" aria-label="Tu Estilo, Tu Actitud">
+            <div class="hero-title-inner">
+                <div class="hero-title-glow" aria-hidden="true"></div>
+                <div class="hero-glare" aria-hidden="true"></div>
+
+                <div class="hero-row hero-row-1">
+                    <span class="hero-tu">Tu</span>
+                    <span class="hero-main-word word-estilo" aria-hidden="true">
+                        {% for char in 'ESTILO' %}
+                        <span class="hero-char" style="--i: {{ loop.index0 }}">{{ char }}</span>
+                        {% endfor %}
+                    </span>
+                </div>
+
+                <div class="hero-accent-bar" aria-hidden="true">
+                    <span class="hero-bar-line hero-bar-line-l"></span>
+                    <span class="hero-bar-icon">♛</span>
+                    <span class="hero-bar-line hero-bar-line-r"></span>
+                </div>
+
+                <div class="hero-row hero-row-2">
+                    <span class="hero-tu">Tu</span>
+                    <span class="hero-main-word word-actitud" aria-hidden="true">
+                        {% for char in 'ACTITUD' %}
+                        <span class="hero-char" style="--i: {{ loop.index0 }}">{{ char }}</span>
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
         </h1>
         <p class="hero-sub">
             Más que un corte. Una experiencia urbana diseñada para el hombre que define su propia regla.

@@ -106,4 +106,22 @@ domReady(function() {
     });
   }, { passive: true });
 
+  // ── Hero title tilt on mouse move ──────────────────
+  const heroTitle = document.querySelector('.hero-title-inner');
+  const heroSection = document.querySelector('.hero');
+  if (heroTitle && heroSection) {
+    heroSection.addEventListener('mousemove', function(e) {
+      const rect = heroSection.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      heroTitle.style.transform =
+        'rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 4) + 'deg) translateZ(0)';
+    });
+    heroSection.addEventListener('mouseleave', function() {
+      heroTitle.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+    heroTitle.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+    heroTitle.style.transformStyle = 'preserve-3d';
+  }
+
 });

@@ -888,24 +888,6 @@ em {
 
 /* ===== SECTIONS ===== */
 .section { padding: 100px 0; }
-/* Services section gets concrete texture overlay */
-#servicios {
-  position: relative;
-}
-#servicios::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: url('/static/img/trueno_album_poster.png');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 0;
-}
-#servicios .container {
-  position: relative;
-  z-index: 1;
-}
 .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 .section-header { text-align: center; margin-bottom: 60px; position: relative; }
 .section-tag {
@@ -1754,8 +1736,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
     background-image:
       linear-gradient(180deg, rgba(6,7,9,0.75) 0%, rgba(6,7,9,0.35) 40%, rgba(6,7,9,0.85) 75%, rgba(6,7,9,1) 100%),
       url('/static/img/hero_bg.png');
-    background-size: cover;
-    background-position: 25% center;
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
   }
   .rating-summary { flex-direction: column; gap: 24px; padding: 20px; }
@@ -1794,8 +1776,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
     background-image:
       linear-gradient(180deg, rgba(6,7,9,0.75) 0%, rgba(6,7,9,0.35) 40%, rgba(6,7,9,0.85) 75%, rgba(6,7,9,1) 100%),
       url('/static/img/hero_bg.png');
-    background-size: cover;
-    background-position: 25% center;
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
   }
   .container { padding: 0 16px; }
@@ -1913,14 +1895,14 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   background-image:
      linear-gradient(90deg, rgba(6,7,9,0.88) 0%, rgba(6,7,9,0.5) 35%, rgba(6,7,9,0.15) 60%, rgba(6,7,9,0.35) 100%),
      url('/static/img/hero_bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 0;
+   background-size: contain;
+   background-position: center;
+   background-repeat: no-repeat;
+   pointer-events: none;
+   z-index: 0;
 }
 
-/* ── 2. SERVICIOS — Barber at work ── */
+/* ── 2. SERVICIOS — Barbero estilizado, ilustración original ── */
 #servicios {
   position: relative;
 }
@@ -1928,9 +1910,11 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.pexels.com/photos/1453005/pexels-photo-1453005.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  background-size: cover;
-  background-position: center 30%;
+  background-image: url('/static/img/fondo%20hd.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0a0b0e;
   pointer-events: none;
   z-index: 0;
 }
@@ -1948,8 +1932,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.unsplash.com/photo-1596728325488-58c87691e9af?auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center 40%;
+  background-size: contain;
+  background-position: center;
   pointer-events: none;
   z-index: 0;
 }
@@ -1967,8 +1951,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.pexels.com/photos/12304512/pexels-photo-12304512.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  background-size: cover;
-  background-position: center 30%;
+  background-size: contain;
+  background-position: center;
   pointer-events: none;
   z-index: 0;
 }
@@ -1983,8 +1967,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center 30%;
+  background-size: contain;
+  background-position: center;
   pointer-events: none;
   z-index: 0;
 }
@@ -2002,8 +1986,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.pexels.com/photos/7697358/pexels-photo-7697358.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  background-size: cover;
-  background-position: center 40%;
+  background-size: contain;
+  background-position: center;
   pointer-events: none;
   z-index: 0;
 }
@@ -2021,8 +2005,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center 40%;
+  background-size: contain;
+  background-position: center;
   pointer-events: none;
   z-index: 0;
 }

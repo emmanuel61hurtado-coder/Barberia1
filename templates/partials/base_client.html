@@ -16,9 +16,12 @@
 <nav class="navbar" id="navbar">
     <div class="nav-inner">
         <a href="{{ url_for('client.index') }}" class="nav-logo">
-            <div class="logo-wrapper">
-                <div class="gold-ring"></div>
-                <img src="{{ url_for('static', filename='img/biggie_makeover_logo.jpeg') }}" class="logo" alt="BIGGIE MAKEOVER">
+            <div class="nav-logo-box">
+                <img src="{{ url_for('static', filename='img/biggie_makeover_logo.jpeg') }}" alt="BIGGIE MAKEOVER Logo" class="nav-logo-img">
+                <div class="nav-brand">
+                    <span class="nav-small">RESALTATE A TI</span>
+                    <span class="nav-main">BIGGIE MAKEOVER</span>
+                </div>
             </div>
         </a>
         <ul class="nav-links">
@@ -43,13 +46,12 @@
     <div class="mm-backdrop"></div>
     <div class="mm-panel">
         <div class="mm-brand">
-            <div class="logo-wrapper">
-                <div class="gold-ring"></div>
-                <img src="{{ url_for('static', filename='img/biggie_makeover_logo.jpeg') }}" class="logo" alt="BIGGIE MAKEOVER">
-            </div>
-            <div class="mm-brand-text">
-                <span class="mm-small">RESALTATE A TI</span>
-                <span class="mm-main">BIGGIE MAKEOVER</span>
+            <div class="mm-logo-box">
+                <img src="{{ url_for('static', filename='img/biggie_makeover_logo.jpeg') }}" alt="BIGGIE MAKEOVER Logo" class="mm-logo-img">
+                <div class="mm-brand-text">
+                    <span class="mm-small">RESALTATE A TI</span>
+                    <span class="mm-main">BIGGIE MAKEOVER</span>
+                </div>
             </div>
         </div>
         <nav class="mm-nav">
@@ -86,13 +88,12 @@
     <div class="footer-inner">
         <div class="footer-brand">
             <div class="footer-logo">
-                <div class="logo-wrapper">
-                    <div class="gold-ring"></div>
-                    <img src="{{ url_for('static', filename='img/biggie_makeover_logo.jpeg') }}" class="logo" alt="BIGGIE MAKEOVER">
-                </div>
-                <div class="footer-brand-text">
-                    <span class="footer-small">RESALTATE A TI</span>
-                    <span class="footer-main">BIGGIE MAKEOVER</span>
+                <div class="footer-logo-box">
+                    <img src="{{ url_for('static', filename='img/biggie_makeover_logo.jpeg') }}" alt="BIGGIE MAKEOVER Logo" class="footer-logo-img">
+                    <div class="footer-brand-text">
+                        <span class="footer-small">RESALTATE A TI</span>
+                        <span class="footer-main">BIGGIE MAKEOVER</span>
+                    </div>
                 </div>
             </div>
             <p>La experiencia de barbería premium que mereces. Arte, precisión y estilo en cada visita.</p>

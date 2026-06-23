@@ -60,56 +60,6 @@ em {
   100% { background-position: 0% 50%; }
 }
 
-/* ===== FLOATING GOLD RING LOGO ===== */
-.logo-wrapper {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: float 5s ease-in-out infinite;
-}
-.logo {
-  width: 40px;
-  height: 40px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.logo-text {
-  font-family: 'Cinzel', serif;
-  font-size: 24px;
-  font-weight: 900;
-  background: var(--gold-shine);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldShine 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
-  letter-spacing: 2px;
-}
-.gold-ring {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 215, 0, 0.8);
-  z-index: 1;
-  box-shadow: 0 0 10px gold, 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 10px rgba(255, 215, 0, 0.4);
-  animation: ringRotate 8s linear infinite;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-@keyframes ringRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 /* ===== NAVBAR ===== */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
@@ -135,15 +85,21 @@ em {
   text-decoration: none;
 }
 .nav-logo-img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 8px var(--gold-glow));
-  animation: logoGlow 3s ease-in-out infinite;
+  width: 30px;
+  height: 30px;
+  display: block;
 }
-@keyframes logoGlow {
-  0%, 100% { filter: drop-shadow(0 0 8px var(--gold-glow)); }
-  50% { filter: drop-shadow(0 0 15px var(--gold-glow)); }
+.nav-crown-icon svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+.nav-crown-icon path,
+.nav-crown-icon rect {
+  fill: none;
+  stroke: #D4AF37;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
 }
 .nav-logo-box {
   display: flex;
@@ -181,22 +137,13 @@ em {
   margin-bottom: 3px;
 }
 .nav-main {
-  font-family: 'Cinzel', serif;
-  font-size: 20px;
-  letter-spacing: 6px;
-  font-weight: 700;
-  background: var(--gold-shine);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldShine 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px var(--gold-glow));
-}
-@keyframes goldShine {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  color: #C0C0C0;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.5), 0 0 20px rgba(192, 192, 192, 0.3);
 }
 .nav-links {
   display: flex; align-items: center; gap: 36px;
@@ -353,22 +300,22 @@ em {
 .mobile-menu.open .mm-brand {
   opacity: 1; transform: translateY(0) scale(1);
 }
-.mm-brand .logo-wrapper {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 16px;
+.mm-logo-img {
+  width: 40px;
+  height: 40px;
+  display: block;
 }
-.mm-brand .logo {
-  width: 48px;
-  height: 48px;
+.mm-crown-icon svg {
+  width: 40px;
+  height: 40px;
+  display: block;
 }
-.mm-brand .logo-text {
-  font-size: 28px;
-  letter-spacing: 3px;
-}
-.mm-brand .gold-ring {
-  width: 60px;
-  height: 60px;
+.mm-crown-icon path,
+.mm-crown-icon rect {
+  fill: none;
+  stroke: #D4AF37;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
 }
 .mm-brand-text {
   display: flex;
@@ -384,21 +331,18 @@ em {
   margin-bottom: 4px;
 }
 .mm-main {
-  font-family: 'Cinzel', serif;
-  font-size: 26px;
-  letter-spacing: 8px;
-  font-weight: 700;
-  background: var(--gold-shine);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldShine 3s ease-in-out infinite, mmCrownPulse 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px var(--gold-glow));
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  letter-spacing: 4px;
+  font-weight: 900;
+  color: #C0C0C0;
+  text-transform: uppercase;
+  animation: mmCrownPulse 2s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.5), 0 0 20px rgba(192, 192, 192, 0.3);
 }
 @keyframes mmCrownPulse {
-  0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.6), 0 0 30px rgba(212,175,55,0.3), 0 0 60px rgba(180,130,20,0.2); transform: scale(1); }
-  50% { text-shadow: 0 0 20px rgba(212,175,55,0.9), 0 0 50px rgba(212,175,55,0.4), 0 0 80px rgba(180,130,20,0.3); transform: scale(1.05); }
+  0%, 100% { text-shadow: 0 0 10px rgba(192, 192, 192, 0.6), 0 0 30px rgba(192, 192, 192, 0.3), 0 0 60px rgba(192, 192, 192, 0.2); transform: scale(1); }
+  50% { text-shadow: 0 0 20px rgba(192, 192, 192, 0.9), 0 0 50px rgba(192, 192, 192, 0.4), 0 0 80px rgba(192, 192, 192, 0.3); transform: scale(1.05); }
 }
 .mm-brand span:last-child {
   font-family: var(--font-cond); font-size: 11px;
@@ -1704,28 +1648,22 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator { filter: inver
 /* ===== FOOTER ===== */
 .footer { background: var(--dark); border-top: 1px solid var(--border); padding: 60px 0 0; }
 .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
-.footer-brand .footer-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+.footer-logo-img {
+  width: 36px;
+  height: 36px;
+  display: block;
 }
-.footer-logo .logo-wrapper {
-  width: 55px;
-  height: 55px;
-  margin-bottom: 12px;
+.footer-crown-icon svg {
+  width: 36px;
+  height: 36px;
+  display: block;
 }
-.footer-logo .logo {
-  width: 44px;
-  height: 44px;
-}
-.footer-logo .logo-text {
-  font-size: 26px;
-  letter-spacing: 2px;
-}
-.footer-logo .gold-ring {
-  width: 55px;
-  height: 55px;
+.footer-crown-icon path,
+.footer-crown-icon rect {
+  fill: none;
+  stroke: #D4AF37;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.3));
 }
 .footer-brand-text {
   display: flex;
@@ -1741,17 +1679,13 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator { filter: inver
   margin-bottom: 4px;
 }
 .footer-main {
-  font-family: 'Cinzel', serif;
-  font-size: 22px;
-  letter-spacing: 7px;
-  font-weight: 700;
-  background: var(--gold-shine);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldShine 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px var(--gold-glow));
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  color: #C0C0C0;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.5), 0 0 20px rgba(192, 192, 192, 0.3);
 }
 .footer-brand p { font-size: 14px; color: var(--gray); margin-top: 20px; max-width: 300px; line-height: 1.8; font-weight: 300; }
 .footer-links h4, .footer-contact h4 { font-family: var(--font-cond); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: #fff; margin-bottom: 24px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 8px; }

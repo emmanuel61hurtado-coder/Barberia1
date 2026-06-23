@@ -2,29 +2,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --black: #060709;
-  --dark: #0c0d10;
-  --dark2: #121418;
-  --dark3: #181b21;
-  --border: rgba(255, 255, 255, 0.06);
-  --border2: rgba(255, 255, 255, 0.12);
+  --black: #0a0a0a;
+  --dark: #141414;
+  --dark2: #1a1a1a;
+  --dark3: #262626;
+  --border: rgba(255, 255, 255, 0.08);
+  --border2: rgba(255, 255, 255, 0.15);
   
-  /* Redefined colors to silver/cool grey */
-  --gold: #ffffff; 
-  --gold2: #a1a1aa; 
-  --gold-dim: rgba(255, 255, 255, 0.08);
-  --white: #f4f4f5; 
-  --gray: #a1a1aa; 
-  --gray2: #52525b; 
+  /* Golden accent colors */
+  --gold: #D4AF37;
+  --gold2: #FFD700;
+  --gold-dim: rgba(212, 175, 55, 0.15);
+  --gold-glow: rgba(212, 175, 55, 0.4);
+  --white: #e5e5e5; 
+  --gray: #a3a3a3; 
+  --gray2: #525252; 
   
   --font-display: 'Barlow Condensed', sans-serif;
   --font-body: 'Barlow', sans-serif;
   --font-cond: 'Barlow Condensed', sans-serif;
   
   /* Glossy / Metallic gradients */
-  --shiny-black: linear-gradient(135deg, #1b1d22 0%, #07080a 100%);
-  --shiny-black-hover: linear-gradient(135deg, #262930 0%, #0c0d10 100%);
-  --metallic-grey: linear-gradient(90deg, #ffffff 0%, #8892a0 100%);
+  --shiny-black: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+  --shiny-black-hover: linear-gradient(135deg, #2a2a2a 0%, #141414 100%);
+  --metallic-grey: linear-gradient(90deg, #ffffff 0%, #888888 100%);
+  --gold-shine: linear-gradient(135deg, #FFD700 0%, #D4AF37 25%, #FFD700 50%, #B8860B 75%, #FFD700 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,6 +60,42 @@ em {
   100% { background-position: 0% 50%; }
 }
 
+/* ===== FLOATING GOLD RING LOGO ===== */
+.logo-wrapper {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: float 5s ease-in-out infinite;
+}
+.logo {
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
+}
+.gold-ring {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 215, 0, 0.8);
+  z-index: 1;
+  box-shadow: 0 0 10px gold, 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 10px rgba(255, 215, 0, 0.4);
+  animation: ringRotate 8s linear infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* ===== NAVBAR ===== */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
@@ -81,6 +119,17 @@ em {
 }
 .nav-logo {
   text-decoration: none;
+}
+.nav-logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--gold-glow));
+  animation: logoGlow 3s ease-in-out infinite;
+}
+@keyframes logoGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--gold-glow)); }
+  50% { filter: drop-shadow(0 0 15px var(--gold-glow)); }
 }
 .nav-logo-box {
   display: flex;
@@ -122,11 +171,18 @@ em {
   font-size: 20px;
   letter-spacing: 6px;
   font-weight: 700;
-  background: linear-gradient(to bottom, #f8f8f8, #8a8a8a);
+  background: var(--gold-shine);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: goldShine 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px var(--gold-glow));
+}
+@keyframes goldShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 .nav-links {
   display: flex; align-items: center; gap: 36px;
@@ -283,6 +339,13 @@ em {
 .mobile-menu.open .mm-brand {
   opacity: 1; transform: translateY(0) scale(1);
 }
+.mm-logo-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px var(--gold-glow));
+  animation: logoGlow 3s ease-in-out infinite;
+}
 .mm-logo-box {
   display: flex;
   align-items: center;
@@ -323,12 +386,13 @@ em {
   font-size: 26px;
   letter-spacing: 8px;
   font-weight: 700;
-  background: linear-gradient(to bottom, #f8f8f8, #8a8a8a);
+  background: var(--gold-shine);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  animation: mmCrownPulse 2s ease-in-out infinite;
+  animation: goldShine 3s ease-in-out infinite, mmCrownPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px var(--gold-glow));
 }
 @keyframes mmCrownPulse {
   0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.6), 0 0 30px rgba(212,175,55,0.3), 0 0 60px rgba(180,130,20,0.2); transform: scale(1); }
@@ -885,10 +949,10 @@ em {
 #servicios::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: url('/static/img/services_bg.png');
+  background-image: url('/static/img/trueno_album_poster.png');
   background-size: cover;
   background-position: center;
-  opacity: 0.18;
+  opacity: 0.25;
   pointer-events: none;
   z-index: 0;
 }
@@ -1638,7 +1702,14 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator { filter: inver
 /* ===== FOOTER ===== */
 .footer { background: var(--dark); border-top: 1px solid var(--border); padding: 60px 0 0; }
 .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
-.footer-brand .footer-logo-box {
+.footer-brand .footer-logo-img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px var(--gold-glow));
+  animation: logoGlow 3s ease-in-out infinite;
+}
+.footer-logo-box {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1678,11 +1749,13 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator { filter: inver
   font-size: 22px;
   letter-spacing: 7px;
   font-weight: 700;
-  background: linear-gradient(to bottom, #f8f8f8, #8a8a8a);
+  background: var(--gold-shine);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: goldShine 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px var(--gold-glow));
 }
 .footer-brand p { font-size: 14px; color: var(--gray); margin-top: 20px; max-width: 300px; line-height: 1.8; font-weight: 300; }
 .footer-links h4, .footer-contact h4 { font-family: var(--font-cond); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: #fff; margin-bottom: 24px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 8px; }

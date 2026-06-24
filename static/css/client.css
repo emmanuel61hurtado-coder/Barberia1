@@ -616,6 +616,10 @@ em {
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
+  background-image: url('/static/img/fondohd.png?v=2');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .hero-grid {
   position: absolute; inset: 0;
@@ -1545,7 +1549,7 @@ input[type="date"].lbw-input::-webkit-calendar-picker-indicator { filter: invert
 .inner-page-header {
   padding: 140px 0 80px;
   background: var(--dark);
-  background-image: url('/static/img/fondo 4k.png');
+  background-image: url('/static/img/fondohd1.png?v=2');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1622,7 +1626,7 @@ input[type="date"].lbw-input::-webkit-calendar-picker-indicator { filter: invert
 .book-page { padding-top: 80px; min-height: 100vh; }
 .book-header {
   padding: 80px 0 48px; background: var(--dark);
-  background-image: url('/static/img/fondo hd.png');
+  background-image: url('/static/img/fondohd2.png?v=2');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2048,7 +2052,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: -20px;
-  background-image: url('/static/img/fondo%20hd.png');
+  background-image: url('/static/img/fondohd.png?v=2');
   background-size: cover;
   background-position: center;
   filter: blur(20px);
@@ -2061,7 +2065,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/static/img/fondo%20hd.png');
+  background-image: url('/static/img/fondohd.png?v=2');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -2083,7 +2087,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: -20px;
-  background-image: url('https://images.unsplash.com/photo-1596728325488-58c87691e9af?auto=format&fit=crop&w=1920&q=80');
+  background-image: url('/static/img/fondohd1.png?v=2');
   background-size: cover;
   background-position: center;
   filter: blur(20px);
@@ -2096,7 +2100,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.unsplash.com/photo-1596728325488-58c87691e9af?auto=format&fit=crop&w=1920&q=80');
+  background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('/static/img/fondohd1.png?v=2');
   background-size: contain;
   background-position: center;
   pointer-events: none;
@@ -2116,7 +2120,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: -20px;
-  background-image: url('https://images.pexels.com/photos/12304512/pexels-photo-12304512.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  background-image: url('/static/img/fondohd2.png?v=2');
   background-size: cover;
   background-position: center;
   filter: blur(20px);
@@ -2129,7 +2133,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.pexels.com/photos/12304512/pexels-photo-12304512.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('/static/img/fondohd2.png?v=2');
   background-size: contain;
   background-position: center;
   pointer-events: none;
@@ -2149,7 +2153,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: -20px;
-  background-image: url('/static/img/fondo%20hd.png');
+  background-image: url('/static/img/fondohd.png?v=2');
   background-size: cover;
   background-position: center;
   filter: blur(20px);
@@ -2162,7 +2166,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(6,7,9,0.45), rgba(6,7,9,0.45)), url('/static/img/fondo%20hd.png');
+  background-image: linear-gradient(rgba(6,7,9,0.45), rgba(6,7,9,0.45)), url('/static/img/fondohd.png?v=2');
   background-size: cover;
   background-position: center;
   pointer-events: none;

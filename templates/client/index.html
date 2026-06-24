@@ -139,132 +139,73 @@
             <h2 class="section-title">La <em>Galería</em></h2>
             <p class="section-sub">Resultados reales. Cada corte cuenta una historia.</p>
         </div>
-        <!-- Filter tabs -->
-        <div class="gallery-tabs reveal">
-            <button class="gtab active" data-filter="all">Todos</button>
-            <button class="gtab" data-filter="fade">Fade</button>
-            <button class="gtab" data-filter="barba">Barba</button>
-            <button class="gtab" data-filter="antes-despues">Antes & Después</button>
-        </div>
-        <div class="gallery-grid">
-            <!-- Antes y Después 1 -->
-            <div class="gallery-item gi-before-after" data-cat="antes-despues fade">
-                <div class="ba-container">
-                    <div class="ba-before">
-                        <div class="ba-placeholder">
-                            <span class="ph-icon">✂</span>
-                            <span class="ph-label">ANTES</span>
-                            <div class="ph-lines">
-                                <div class="ph-line ph-l1"></div>
-                                <div class="ph-line ph-l2"></div>
-                                <div class="ph-line ph-l3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ba-after">
-                        <div class="ba-placeholder ba-after-ph">
-                            <span class="ph-icon">✦</span>
-                            <span class="ph-label">DESPUÉS</span>
-                            <div class="ph-lines">
-                                <div class="ph-line ph-l1 ph-neat"></div>
-                                <div class="ph-line ph-l2 ph-neat"></div>
-                                <div class="ph-line ph-l3 ph-neat"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ba-slider" id="baSlider1">
-                        <div class="ba-handle">⟺</div>
-                    </div>
+        <div class="gallery-compact reveal">
+            <div class="gc-card" data-cat="fade">
+                <div class="gc-visual gv-fade1">
+                    <div class="gc-icon">✂</div>
+                    <span class="gc-name">High Fade</span>
+                    <span class="gc-desc">Degradado perfecto</span>
                 </div>
-                <div class="gi-label">Fade + Diseño — Sebastián M.</div>
-            </div>
-
-            <!-- Trabajo 1 -->
-            <div class="gallery-item" data-cat="fade">
-                <div class="gi-visual gv-fade1">
-                    <div class="gv-content">
-                        <div class="gv-icon">✂</div>
-                        <span class="gv-title">High Fade</span>
-                        <span class="gv-sub">Degradado perfecto</span>
-                    </div>
-                    <div class="gi-overlay">
-                        <span>Fade Premium</span>
-                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
-                    </div>
+                <div class="gc-overlay">
+                    <span class="gc-otitle">Fade Premium</span>
+                    <a href="{{ url_for('client.book') }}" class="gc-btn">Reservar →</a>
                 </div>
             </div>
-
-            <!-- Trabajo 2 -->
-            <div class="gallery-item" data-cat="barba">
-                <div class="gi-visual gv-beard1">
-                    <div class="gv-content">
-                        <div class="gv-icon">◉</div>
-                        <span class="gv-title">Beard Ritual</span>
-                        <span class="gv-sub">Perfilado + aceites</span>
-                    </div>
-                    <div class="gi-overlay">
-                        <span>Barba Clásica</span>
-                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
-                    </div>
+            <div class="gc-card" data-cat="barba">
+                <div class="gc-visual gv-beard1">
+                    <div class="gc-icon">◉</div>
+                    <span class="gc-name">Beard Ritual</span>
+                    <span class="gc-desc">Perfilado + aceites</span>
+                </div>
+                <div class="gc-overlay">
+                    <span class="gc-otitle">Barba Clásica</span>
+                    <a href="{{ url_for('client.book') }}" class="gc-btn">Reservar →</a>
                 </div>
             </div>
-
-            <!-- Antes y Después 2 -->
-            <div class="gallery-item gi-before-after" data-cat="antes-despues barba">
-                <div class="ba-container">
-                    <div class="ba-before">
-                        <div class="ba-placeholder">
-                            <span class="ph-icon">◉</span>
-                            <span class="ph-label">ANTES</span>
-                            <div class="ph-beard ph-beard-messy"></div>
-                        </div>
-                    </div>
-                    <div class="ba-after">
-                        <div class="ba-placeholder ba-after-ph">
-                            <span class="ph-icon">♛</span>
-                            <span class="ph-label">DESPUÉS</span>
-                            <div class="ph-beard ph-beard-clean"></div>
-                        </div>
-                    </div>
-                    <div class="ba-slider" id="baSlider2">
-                        <div class="ba-handle">⟺</div>
-                    </div>
+            <div class="gc-card" data-cat="fade">
+                <div class="gc-visual gv-fade2">
+                    <div class="gc-icon">◈</div>
+                    <span class="gc-name">Skin Fade</span>
+                    <span class="gc-desc">Transición cero</span>
                 </div>
-                <div class="gi-label">Ritual de Barba — Diego V.</div>
-            </div>
-
-            <!-- Trabajo 3 -->
-            <div class="gallery-item" data-cat="fade">
-                <div class="gi-visual gv-fade2">
-                    <div class="gv-content">
-                        <div class="gv-icon">◈</div>
-                        <span class="gv-title">Skin Fade</span>
-                        <span class="gv-sub">Transición cero</span>
-                    </div>
-                    <div class="gi-overlay">
-                        <span>Fade & Diseño</span>
-                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
-                    </div>
+                <div class="gc-overlay">
+                    <span class="gc-otitle">Fade & Diseño</span>
+                    <a href="{{ url_for('client.book') }}" class="gc-btn">Reservar →</a>
                 </div>
             </div>
-
-            <!-- Trabajo 4 -->
-            <div class="gallery-item" data-cat="fade barba">
-                <div class="gi-visual gv-combo">
-                    <div class="gv-content">
-                        <div class="gv-icon">✦</div>
-                        <span class="gv-title">Full Look</span>
-                        <span class="gv-sub">Corte + Barba</span>
-                    </div>
-                    <div class="gi-overlay">
-                        <span>Ritual Completo</span>
-                        <a href="{{ url_for('client.book') }}" class="gi-reserve">Reservar →</a>
-                    </div>
+            <div class="gc-card" data-cat="fade barba">
+                <div class="gc-visual gv-combo">
+                    <div class="gc-icon">✦</div>
+                    <span class="gc-name">Full Look</span>
+                    <span class="gc-desc">Corte + Barba</span>
+                </div>
+                <div class="gc-overlay">
+                    <span class="gc-otitle">Ritual Completo</span>
+                    <a href="{{ url_for('client.book') }}" class="gc-btn">Reservar →</a>
                 </div>
             </div>
-        </div>
-        <div class="gallery-cta reveal">
-            <p>¿Quieres tu foto aquí? <a href="{{ url_for('client.book') }}" class="gold-link">Reserva tu cita →</a></p>
+            <div class="gc-card" data-cat="antes-despues fade">
+                <div class="gc-visual gv-ba1">
+                    <div class="gc-icon">⟺</div>
+                    <span class="gc-name">Antes & Después</span>
+                    <span class="gc-desc">Fade + Diseño</span>
+                </div>
+                <div class="gc-overlay">
+                    <span class="gc-otitle">Sebastián M.</span>
+                    <a href="{{ url_for('client.book') }}" class="gc-btn">Ver más →</a>
+                </div>
+            </div>
+            <div class="gc-card" data-cat="antes-despues barba">
+                <div class="gc-visual gv-ba2">
+                    <div class="gc-icon">⟺</div>
+                    <span class="gc-name">Antes & Después</span>
+                    <span class="gc-desc">Ritual de Barba</span>
+                </div>
+                <div class="gc-overlay">
+                    <span class="gc-otitle">Diego V.</span>
+                    <a href="{{ url_for('client.book') }}" class="gc-btn">Ver más →</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

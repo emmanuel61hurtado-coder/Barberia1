@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Intersection Observer for section detection
     const observerOptions = {
         root: scrollContainer,
-        threshold: 0.5,
+        threshold: 0.2,
         rootMargin: '0px'
     };
     
@@ -98,5 +98,92 @@ document.addEventListener('DOMContentLoaded', function() {
         if (firstSection) {
             firstSection.classList.add('in-view');
         }
-    }, 300);
+    }, 100);
+    
+    // Wheel event for TikTok-like instant snap
+    scrollContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        
+        const delta = e.deltaY;
+        const currentScroll = scrollContainer.scrollTop;
+        const sectionHeight = window.innerHeight;
+        
+        if (delta > 0) {
+            // Scroll down - instant snap to next section
+            const targetScroll = Math.ceil(currentScroll / sectionHeight) * sectionHeight;
+            scrollContainer.scrollTo({
+                top: targetScroll,
+                behavior: 'auto' // Instant, no animation
+            });
+        } else {
+            // Scroll up - instant snap to previous section
+            const targetScroll = Math.floor(currentScroll / sectionHeight) * sectionHeight;
+            scrollContainer.scrollTo({
+                top: targetScroll,
+                behavior: 'auto' // Instant, no animation
+            });
+        }
+    }, { passive: false });
+    
+    // Keyboard navigation for even faster control
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+            e.preventDefault();
+            const currentScroll = scrollContainer.scrollTop;
+            const sectionHeight = window.innerHeight;
+            const targetScroll = Math.ceil(currentScroll / sectionHeight) * sectionHeight;
+            scrollContainer.scrollTo({
+                top: targetScroll,
+                behavior: 'auto'
+            });
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            const currentScroll = scrollContainer.scrollTop;
+            const sectionHeight = window.innerHeight;
+            const targetScroll = Math.floor(currentScroll / sectionHeight) * sectionHeight;
+            scrollContainer.scrollTo({
+                top: targetScroll,
+                behavior: 'auto'
+            });
+        }
+    });
+    
+    // Touch swipe for TikTok-like mobile experience
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    scrollContainer.addEventListener('touchstart', (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    scrollContainer.addEventListener('touchend', (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 30; // Very sensitive - like TikTok
+        const diff = touchStartY - touchEndY;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            const currentScroll = scrollContainer.scrollTop;
+            const sectionHeight = window.innerHeight;
+            
+            if (diff > 0) {
+                // Swipe up - scroll down to next section
+                const targetScroll = Math.ceil(currentScroll / sectionHeight) * sectionHeight;
+                scrollContainer.scrollTo({
+                    top: targetScroll,
+                    behavior: 'auto' // Instant
+                });
+            } else {
+                // Swipe down - scroll up to previous section
+                const targetScroll = Math.floor(currentScroll / sectionHeight) * sectionHeight;
+                scrollContainer.scrollTo({
+                    top: targetScroll,
+                    behavior: 'auto' // Instant
+                });
+            }
+        }
+    }
 });

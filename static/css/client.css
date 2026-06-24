@@ -586,6 +586,7 @@ em {
 }
 .orb-1 { width: 500px; height: 500px; top: -200px; right: -100px; background: rgba(255,255,255,0.03); animation: floatOrb1 25s infinite alternate; }
 .orb-2 { width: 400px; height: 400px; bottom: -150px; left: -150px; background: rgba(255,255,255,0.02); animation: floatOrb2 20s infinite alternate; }
+.hero-grid, .hero-orb { display: none; }
 
 @keyframes floatOrb1 {
   0% { transform: translate(0, 0) scale(1); }
@@ -1796,10 +1797,10 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   .sc-btn { padding: 4px 8px; font-size: 8px; letter-spacing: 0.08em; border-radius: 4px; }
   .hero-bg::before {
     background-image:
-      linear-gradient(180deg, rgba(6,7,9,0.75) 0%, rgba(6,7,9,0.35) 40%, rgba(6,7,9,0.85) 75%, rgba(6,7,9,1) 100%),
-      url('/static/img/hero_bg.png');
-    background-size: contain;
-    background-position: center;
+      linear-gradient(190deg, rgba(6,7,9,0.45) 0%, rgba(6,7,9,0.2) 35%, rgba(6,7,9,0.65) 68%, rgba(6,7,9,0.95) 100%),
+      url('/static/img/hero_sculpture.png');
+    background-size: cover;
+    background-position: center 15%;
     background-repeat: no-repeat;
   }
   .rating-summary { flex-direction: column; gap: 24px; padding: 20px; }
@@ -1834,10 +1835,10 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   .hero-badge { font-size: 10px; padding: 6px 14px; margin-bottom: 20px; }
   .hero-bg::before {
     background-image:
-      linear-gradient(180deg, rgba(6,7,9,0.75) 0%, rgba(6,7,9,0.35) 40%, rgba(6,7,9,0.85) 75%, rgba(6,7,9,1) 100%),
-      url('/static/img/hero_bg.png');
-    background-size: contain;
-    background-position: center;
+      linear-gradient(190deg, rgba(6,7,9,0.5) 0%, rgba(6,7,9,0.22) 32%, rgba(6,7,9,0.7) 66%, rgba(6,7,9,0.96) 100%),
+      url('/static/img/hero_sculpture.png');
+    background-size: cover;
+    background-position: center 12%;
     background-repeat: no-repeat;
   }
   .container { padding: 0 16px; }
@@ -1920,6 +1921,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none; opacity: 0.25;
+  z-index: 1;
 }
 .badge-dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -1942,7 +1944,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
    background from Unsplash/Pexels.
 ═══════════════════════════════════════ */
 
-/* ── 1. HERO — Barber shop interior ── */
+/* ── 1. HERO — Sculptural portrait, art-directed per breakpoint ── */
 .hero-bg {
   overflow: hidden;
 }
@@ -1951,26 +1953,13 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   position: absolute;
   inset: 0;
   background-image:
-     linear-gradient(90deg, rgba(6,7,9,0.88) 0%, rgba(6,7,9,0.5) 35%, rgba(6,7,9,0.15) 60%, rgba(6,7,9,0.35) 100%),
+     linear-gradient(100deg, rgba(6,7,9,0.93) 0%, rgba(6,7,9,0.78) 38%, rgba(6,7,9,0.4) 62%, rgba(6,7,9,0.6) 100%),
      url('/static/img/hero_bg.png');
-   background-size: contain;
-   background-position: center;
-   background-repeat: no-repeat;
-   pointer-events: none;
-   z-index: 1;
-}
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  background-image: url('/static/img/hero_bg.png');
   background-size: cover;
-  background-position: center;
-  filter: blur(20px);
-  transform: scale(1.1);
+  background-position: center 32%;
+  background-repeat: no-repeat;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
 }
 
 /* ── 2. SERVICIOS ── */
@@ -2083,7 +2072,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: -20px;
-  background-image: url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1920&q=80');
+  background-image: url('/static/img/fondo%20hd.png');
   background-size: cover;
   background-position: center;
   filter: blur(20px);
@@ -2096,8 +2085,8 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1920&q=80');
-  background-size: contain;
+  background-image: linear-gradient(rgba(6,7,9,0.45), rgba(6,7,9,0.45)), url('/static/img/fondo%20hd.png');
+  background-size: cover;
   background-position: center;
   pointer-events: none;
   z-index: 1;
@@ -2116,7 +2105,7 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: -20px;
-  background-image: url('https://images.pexels.com/photos/7697358/pexels-photo-7697358.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  background-image: url('/static/img/fondo%204k.png');
   background-size: cover;
   background-position: center;
   filter: blur(20px);
@@ -2129,9 +2118,9 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   content: '';
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(6,7,9,0.3), rgba(6,7,9,0.3)), url('https://images.pexels.com/photos/7697358/pexels-photo-7697358.jpeg?auto=compress&cs=tinysrgb&w=1920');
-  background-size: contain;
-  background-position: center;
+  background-image: linear-gradient(rgba(6,7,9,0.45), rgba(6,7,9,0.45)), url('/static/img/fondo%204k.png');
+  background-size: cover;
+  background-position: center 20%;
   pointer-events: none;
   z-index: 1;
 }

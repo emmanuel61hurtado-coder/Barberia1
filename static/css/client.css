@@ -607,6 +607,143 @@ em {
 .flash button { background: none; border: none; cursor: pointer; color: inherit; font-size: 18px; opacity: 0.7; }
 @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
+/* ===== SCROLL CONTAINER ===== */
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.scroll-section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Scroll animations */
+.scroll-section {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-section.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Parallax effect on scroll */
+.scroll-section::before {
+  transition: transform 0.3s ease-out;
+}
+
+.scroll-section.in-view::before {
+  animation: parallaxFloat 2s ease-out forwards;
+}
+
+@keyframes parallaxFloat {
+  0% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Glow effect on active section */
+.scroll-section.in-view .container {
+  animation: sectionGlow 1s ease-out;
+}
+
+@keyframes sectionGlow {
+  0% {
+    filter: brightness(0.8);
+  }
+  50% {
+    filter: brightness(1.1);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* Progress indicator */
+.scroll-progress {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scroll-progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-progress-dot.active {
+  background: #ffd700;
+  border-color: #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  transform: scale(1.3);
+}
+
+.scroll-progress-dot:hover {
+  background: rgba(255, 215, 0, 0.5);
+  border-color: rgba(255, 215, 0, 0.7);
+  transform: scale(1.2);
+}
+
+/* Scroll indicator animation */
+.hero-scroll {
+  animation: scrollBounce 2s infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+/* Responsive scroll behavior */
+@media (max-width: 768px) {
+  .scroll-container {
+    scroll-snap-type: y proximity;
+  }
+  
+  .scroll-section {
+    min-height: auto;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  
+  .scroll-progress {
+    right: 15px;
+  }
+  
+  .scroll-progress-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
 /* ===== HERO ===== */
 .hero {
   min-height: 100vh;

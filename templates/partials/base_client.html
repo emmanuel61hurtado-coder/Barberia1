@@ -144,5 +144,17 @@
 
 <script src="{{ url_for('static', filename='js/client.js') }}"></script>
 {% block extra_js %}{% endblock %}
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-dot active" data-target="inicio"></div>
+        <div class="scroll-progress-dot" data-target="servicios"></div>
+        <div class="scroll-progress-dot" data-target="galeria"></div>
+        <div class="scroll-progress-dot" data-target="barberos"></div>
+        <div class="scroll-progress-dot" data-target="opiniones"></div>
+        <div class="scroll-progress-dot" data-target="reserva"></div>
+        <div class="scroll-progress-dot" data-target="contacto"></div>
+    </div>
+
 </body>
 </html>

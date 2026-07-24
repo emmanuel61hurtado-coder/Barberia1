@@ -44,14 +44,14 @@ body.admin-body::before {
   width: 100vw;
   height: 100vh;
   background-image: 
-    linear-gradient(rgba(10, 10, 12, 0.82), rgba(10, 10, 12, 0.88)),
+    linear-gradient(rgba(10, 10, 12, 0.55), rgba(10, 10, 12, 0.65)),
     url('../img/admin_bg.png'),
     url('../img/fondohd.png'),
     url('../img/fondo4k.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: grayscale(100%) contrast(115%) brightness(0.70);
+  filter: grayscale(100%) contrast(108%) brightness(0.95);
   z-index: 0;
   pointer-events: none;
 }
@@ -300,14 +300,14 @@ a { color: inherit; text-decoration: none; }
   width: 100vw;
   height: 100vh;
   background-image: 
-    linear-gradient(rgba(10, 10, 12, 0.78), rgba(10, 10, 12, 0.88)),
+    linear-gradient(rgba(10, 10, 12, 0.55), rgba(10, 10, 12, 0.65)),
     url('../img/admin_bg.png'),
     url('../img/fondohd.png'),
     url('../img/fondo4k.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: grayscale(100%) contrast(115%) brightness(0.65);
+  filter: grayscale(100%) contrast(108%) brightness(0.95);
   z-index: 0;
   pointer-events: none;
 }

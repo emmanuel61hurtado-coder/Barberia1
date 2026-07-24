@@ -73,6 +73,9 @@ domReady(function() {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    });
+  });
+
   // ── Scroll reveal animation ────────────────────────
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(el) {

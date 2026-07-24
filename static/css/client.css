@@ -67,16 +67,19 @@ em {
   padding: 18px 40px;
   display: flex; align-items: center;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  border-bottom: 1px solid transparent;
-}
-.navbar.scrolled {
-  background: rgba(6, 7, 9, 0.85);
+  background: rgba(6, 7, 9, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+.navbar.scrolled {
+  background: rgba(6, 7, 9, 0.98);
   border-color: var(--border);
   padding: 12px 40px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 }
+
 .nav-inner {
   width: 100%; max-width: 1200px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
@@ -611,6 +614,7 @@ em {
 .scroll-container {
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   scroll-snap-points-y: repeat(100vh);
@@ -624,8 +628,20 @@ em {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;  /* stretch so container fills full width */
   overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Container inside scroll sections must fill width */
+.scroll-section > .container,
+.scroll-section .container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
 }
 
 /* Scroll animations */
@@ -727,24 +743,29 @@ em {
 /* Responsive scroll behavior */
 @media (max-width: 768px) {
   .scroll-container {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: none; /* disable snap on mobile so content isn't clipped */
   }
-  
+
   .scroll-section {
-    min-height: auto;
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 0; /* remove side padding — container handles its own padding */
+    justify-content: flex-start;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
-  
+
   .scroll-progress {
-    right: 15px;
-  }
-  
-  .scroll-progress-dot {
-    width: 10px;
-    height: 10px;
+    display: none; /* hide dots on mobile — they overlap content */
   }
 }
+
+@media (max-width: 480px) {
+  .scroll-section {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+}
+
 
 /* ===== HERO ===== */
 .hero {
@@ -1526,12 +1547,20 @@ em {
 .rbar-track { flex: 1; height: 6px; background: var(--dark3); border-radius: 100px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02); }
 .rbar-fill { height: 100%; background: linear-gradient(90deg, #8892a0, #ffffff); border-radius: 100px; transition: width 1s ease; }
 
+.reviews-carousel-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+}
 .reviews-track {
   display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 .review-card {
-  min-width: 100%; padding: 32px;
+  min-width: 100%; flex-shrink: 0;
+  padding: 32px;
+  box-sizing: border-box;
 }
 .review-top { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
 .review-avatar {
@@ -2026,14 +2055,47 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
     background-position: center 15%;
     background-repeat: no-repeat;
   }
-  .rating-summary { flex-direction: column; gap: 24px; padding: 20px; }
-  .gallery-compact { grid-template-columns: repeat(2, 1fr); max-width: none; margin: 0; }
+  /* ── Reviews: mobile layout ── */
+  .rating-summary { flex-direction: row; flex-wrap: wrap; gap: 16px 32px; padding: 18px 20px; margin-bottom: 20px; }
+  .rating-big { flex: 0 0 auto; }
+  .rating-num { font-size: 52px; }
+  .rating-bars { flex: 1; min-width: 160px; gap: 8px; }
+  .reviews-carousel-wrapper { border-radius: 8px; }
+  .review-card { padding: 20px; }
+  .review-text { font-size: 16px; line-height: 1.7; }
+  .review-name { font-size: 15px; }
+  .reviews-nav { margin-top: 16px; gap: 12px; }
+  .rnav-btn { width: 38px; height: 38px; font-size: 14px; }
+  /* Compact section header inside reviews on mobile */
+  #opiniones .section-header { margin-bottom: 20px; }
+  #opiniones .section-sub { font-size: 14px; }
+
+  /* ── Hero main: mobile layout ── */
+  .hero { padding-top: 70px; }
+  .hero-content { padding: 0 20px; padding-left: 20px; max-width: 100%; }
   .hero-title { margin-bottom: 20px; }
   .hero-main-word { font-size: clamp(40px, 11vw, 56px); }
   .hero-row-2 { margin-left: clamp(16px, 5vw, 40px); }
   .hero-tu { font-size: 11px; letter-spacing: 0.22em; padding-right: 8px; }
   .hero-accent-bar { margin: 8px 0 10px 4px; gap: 8px; }
-  .hero-sub { font-size: 16px; }
+  .hero-sub { font-size: 16px; max-width: 100%; }
+  .hero-actions { flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; }
+  .stat-num { font-size: 28px; }
+  .hero-scroll { display: none; }
+
+  /* ── Inner page / book headers ── */
+  .inner-page-header {
+    padding: 90px 0 50px;
+  }
+  .inner-page-header h1 { font-size: clamp(28px, 8vw, 44px); }
+  .inner-page-header p { font-size: 14px; margin-top: 10px; }
+  .book-header { padding: 80px 0 40px; }
+  .book-header h1 { font-size: clamp(26px, 8vw, 42px); }
+  .book-header p { font-size: 14px; }
+
+  /* ── Gallery / other ── */
+  .gallery-compact { grid-template-columns: repeat(2, 1fr); max-width: none; margin: 0; }
   .lbw-left, .lbw-right { padding: 24px; }
 }
 
@@ -2066,9 +2128,13 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   }
   .container { padding: 0 16px; }
   .section { padding: 48px 0; }
-  .section-header { margin-bottom: 32px; }
-  .section-title { font-size: 24px; }
-  .section-sub { font-size: 14px; }
+  .section-header { margin-bottom: 24px; max-width: 100%; }
+  .section-title { font-size: 22px; }
+  .section-sub { font-size: 13px; }
+  /* Extra-compact reviews section header on xs */
+  #opiniones .section-header { margin-bottom: 12px; }
+  #opiniones .section-title { font-size: 20px; }
+  #opiniones .section-sub { font-size: 12px; }
   .gallery-compact { grid-template-columns: repeat(2, 1fr); gap: 6px; max-width: none; margin: 0; }
   .gc-visual { aspect-ratio: 2 / 3; }
   .barbers-grid { grid-template-columns: 1fr; gap: 12px; }
@@ -2090,10 +2156,23 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   .sc-info h3 { font-size: 13px; }
   .sc-price-val { font-size: 15px; }
   .sc-btn { padding: 3px 7px; font-size: 7px; }
-  .review-card { padding: 20px; }
-  .review-text { font-size: 15px; }
-  .rating-summary { padding: 16px; gap: 16px; }
-  .rating-num { font-size: 40px; }
+  /* ── Reviews: extra small screens ── */
+  .rating-summary { flex-direction: column; align-items: center; gap: 12px; padding: 14px 16px; margin-bottom: 16px; }
+  .rating-big { display: flex; flex-direction: row; align-items: center; gap: 14px; }
+  .rating-num { font-size: 44px; }
+  .rating-stars-big { font-size: 16px; letter-spacing: 2px; margin: 4px 0; }
+  .rating-total { font-size: 11px; }
+  .rating-bars { width: 100%; gap: 7px; }
+  .rbar { font-size: 11px; gap: 8px; }
+  .reviews-carousel-wrapper { border-radius: 6px; }
+  .review-card { padding: 16px; }
+  .review-text { font-size: 15px; line-height: 1.65; }
+  .review-avatar { width: 40px; height: 40px; font-size: 13px; flex-shrink: 0; }
+  .review-name { font-size: 14px; }
+  .review-service { font-size: 11px; }
+  .review-rating { font-size: 13px; letter-spacing: 2px; }
+  .review-top { gap: 12px; margin-bottom: 14px; }
+  .reviews-nav { margin-top: 14px; gap: 10px; }
   .rnav-btn { width: 32px; height: 32px; font-size: 12px; }
   .barber-btn { margin-top: 12px; }
   .footer-inner { padding: 0 16px 32px; }
@@ -2593,33 +2672,56 @@ input[type="text"], input[type="tel"], input[type="date"], input[type="email"], 
   .mm-cta { font-size: 14px; padding: 16px; }
 }
 
-/* Inner pages responsive */
-@media (max-width: 768px) {
-  .inner-page-header {
-    padding: 100px 0 60px;
-    background-size: cover;
-    background-position: center center;
-  }
-  .inner-page-header h1 {
-    font-size: 2rem;
-  }
-  .book-header {
-    padding: 60px 0 40px;
-    background-size: cover;
-    background-position: center center;
-  }
-  .book-header h1 {
-    font-size: 1.8rem;
-  }
-}
+/* ===== INNER PAGES & BOOK HEADER — RESPONSIVE ===== */
 
+/* Tablet */
 @media (min-width: 769px) and (max-width: 1024px) {
   .inner-page-header {
+    padding: 110px 0 64px;
     background-size: cover;
     background-position: center center;
   }
+  .inner-page-header h1 { font-size: clamp(34px, 5vw, 52px); }
   .book-header {
+    padding: 90px 0 44px;
     background-size: cover;
     background-position: center center;
   }
+  .book-header h1 { font-size: clamp(30px, 5vw, 48px); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .inner-page-header {
+    padding: 90px 0 50px;
+    background-size: cover;
+    background-position: center center;
+  }
+  .inner-page-header h1 { font-size: clamp(26px, 8vw, 40px); }
+  .inner-page-header p { font-size: 14px; margin-top: 10px; padding: 0 8px; }
+  .book-header {
+    padding: 80px 0 36px;
+    background-size: cover;
+    background-position: center center;
+  }
+  .book-header h1 { font-size: clamp(24px, 8vw, 36px); }
+  .book-header p { font-size: 14px; padding: 0 8px; }
+}
+
+/* Extra small */
+@media (max-width: 480px) {
+  .inner-page-header {
+    padding: 80px 0 40px;
+  }
+  .inner-page-header h1 { font-size: clamp(22px, 9vw, 32px); }
+  .book-header {
+    padding: 70px 0 28px;
+  }
+  .book-header h1 { font-size: clamp(20px, 9vw, 30px); }
+  /* Hero main extra-small refinements */
+  .hero-content { padding: 0 14px; }
+  .hero-badge { font-size: 10px; padding: 5px 12px; margin-bottom: 16px; }
+  .hero-stats { justify-content: space-between; width: 100%; gap: 4px; }
+  .stat-num { font-size: 24px; }
+  .stat-label { font-size: 9px; }
 }

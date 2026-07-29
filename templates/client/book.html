@@ -205,14 +205,14 @@
 {% endblock %}
 
 {% block extra_js %}
-<script id="services-data" type="application/json">
+<script id="services-data" type="text/template">
 {
     {% for s in services %}
     "{{ s.id }}": { "name": "{{ s.name }}", "price": "{{ "${:,.0f}".format(s.price) }}" }{% if not loop.last %},{% endif %}
     {% endfor %}
 }
 </script>
-<script id="barbers-data" type="application/json">
+<script id="barbers-data" type="text/template">
 {
     {% for b in barbers %}
     "{{ b.id }}": { "name": "{{ b.name }}" }{% if not loop.last %},{% endif %}

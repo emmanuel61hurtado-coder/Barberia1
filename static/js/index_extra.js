@@ -32,55 +32,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // ── Gallery filter ─────────────────────────────────
-document.querySelectorAll('.gtab').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.gtab').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            const cats = item.dataset.cat || '';
-            if (filter === 'all' || cats.includes(filter)) {
-                item.style.display = '';
-                item.style.animation = 'fadeScaleIn 0.4s ease forwards';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
-});
-
-// ── Before/After slider ────────────────────────────
-function initBASlider(sliderId) {
-    const slider = document.getElementById(sliderId);
-    if (!slider) return;
-    const container = slider.closest('.ba-container');
-    const afterEl = container.querySelector('.ba-after');
-    let dragging = false;
-
-    function setPos(x) {
-        const rect = container.getBoundingClientRect();
-        let pct = ((x - rect.left) / rect.width) * 100;
-        pct = Math.max(5, Math.min(95, pct));
-        afterEl.style.clipPath = `inset(0 0 0 ${pct}%)`;
-        slider.style.left = pct + '%';
-    }
-
-    // Init at 50%
-    afterEl.style.clipPath = 'inset(0 0 0 50%)';
-    slider.style.left = '50%';
-
-    slider.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
-    slider.addEventListener('touchstart', e => { dragging = true; }, { passive: true });
-    document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
-    document.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
-    document.addEventListener('mouseup', () => dragging = false);
-    document.addEventListener('touchend', () => dragging = false);
-    container.addEventListener('click', e => setPos(e.clientX));
-}
-
-initBASlider('baSlider1');
-initBASlider('baSlider2');
-
 // ── Reviews carousel ───────────────────────────────
 (function initReviews() {
     const track = document.getElementById('reviewsTrack');

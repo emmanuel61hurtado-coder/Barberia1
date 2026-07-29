@@ -205,23 +205,15 @@
 {% endblock %}
 
 {% block extra_js %}
-<script id="services-data" type="text/template">
-{
-    {% for s in services %}
-    "{{ s.id }}": { "name": "{{ s.name }}", "price": "{{ "${:,.0f}".format(s.price) }}" }{% if not loop.last %},{% endif %}
-    {% endfor %}
-}
-</script>
-<script id="barbers-data" type="text/template">
-{
-    {% for b in barbers %}
-    "{{ b.id }}": { "name": "{{ b.name }}" }{% if not loop.last %},{% endif %}
-    {% endfor %}
-}
-</script>
+<div id="booking-data" 
+     style="display:none;" 
+     data-services="{{ services_json }}" 
+     data-barbers="{{ barbers_json }}">
+</div>
 <script>
-const servicesData = JSON.parse(document.getElementById('services-data').textContent);
-const barbersData = JSON.parse(document.getElementById('barbers-data').textContent);
+const bookingDataEl = document.getElementById('booking-data');
+const servicesData = JSON.parse(bookingDataEl.getAttribute('data-services') || '{}');
+const barbersData = JSON.parse(bookingDataEl.getAttribute('data-barbers') || '{}');
 </script>
 <script src="{{ url_for('static', filename='js/book.js') }}"></script>
 {% endblock %}

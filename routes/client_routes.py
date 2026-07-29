@@ -21,6 +21,9 @@ def book():
     barbers = Barber.query.filter_by(is_active=True).all()
     services = Service.query.filter_by(is_active=True).all()
     today = date.today().isoformat()
+    import json
+    services_dict = {s.id: {'name': s.name, 'price': '${:,.0f}'.format(s.price)} for s in services}
+    barbers_dict = {b.id: {'name': b.name} for b in barbers}
 
     if request.method == 'POST':
         client_name = request.form.get('client_name', '').strip()
@@ -61,7 +64,7 @@ def book():
         if errors:
             for error in errors:
                 flash(error, 'error')
-            return render_template('client/book.html', barbers=barbers, services=services, now=today)
+            return render_template('client/book.html', barbers=barbers, services=services, now=today, services_json=json.dumps(services_dict), barbers_json=json.dumps(barbers_dict))
 
         appointment = Appointment(
             client_name=client_name,
@@ -80,7 +83,7 @@ def book():
         flash('¡Reserva realizada con éxito! Te contactaremos para confirmar.', 'success')
         return redirect(url_for('client.confirmation', appointment_id=appointment.id))
 
-    return render_template('client/book.html', barbers=barbers, services=services, now=today)
+    return render_template('client/book.html', barbers=barbers, services=services, now=today, services_json=json.dumps(services_dict), barbers_json=json.dumps(barbers_dict))
 
 @client_bp.route('/confirmacion/<int:appointment_id>')
 def confirmation(appointment_id):

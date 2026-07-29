@@ -15,6 +15,20 @@ class Appointment(db.Model):
     status = db.Column(db.String(20), default='pendiente')  # pendiente, confirmada, completada, cancelada
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def __init__(self, client_name=None, client_phone=None, client_email=None, barber_id=None, service_id=None, appointment_date=None, appointment_time=None, notes=None, status=None, **kwargs):
+        super(Appointment, self).__init__(
+            client_name=client_name,
+            client_phone=client_phone,
+            client_email=client_email,
+            barber_id=barber_id,
+            service_id=service_id,
+            appointment_date=appointment_date,
+            appointment_time=appointment_time,
+            notes=notes,
+            status=status,
+            **kwargs
+        )
+
     def __repr__(self):
         return f'<Appointment {self.client_name} - {self.appointment_date}>'
 

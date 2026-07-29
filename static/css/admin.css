@@ -45,7 +45,6 @@ body.admin-body::before {
   height: 100vh;
   background-image: 
     linear-gradient(rgba(10, 10, 12, 0.55), rgba(10, 10, 12, 0.65)),
-
     url('../img/fondohd.png'),
     url('../img/fondo4k.png');
   background-size: cover;

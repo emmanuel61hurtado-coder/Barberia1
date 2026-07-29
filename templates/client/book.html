@@ -205,17 +205,23 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-const servicesData = {
+<script id="services-data" type="application/json">
+{
     {% for s in services %}
-    {{ s.id }}: { name: '{{ s.name }}', price: '{{ "${:,.0f}".format(s.price) }}' },
+    "{{ s.id }}": { "name": "{{ s.name }}", "price": "{{ "${:,.0f}".format(s.price) }}" }{% if not loop.last %},{% endif %}
     {% endfor %}
-};
-const barbersData = {
+}
+</script>
+<script id="barbers-data" type="application/json">
+{
     {% for b in barbers %}
-    {{ b.id }}: { name: '{{ b.name }}' },
+    "{{ b.id }}": { "name": "{{ b.name }}" }{% if not loop.last %},{% endif %}
     {% endfor %}
-};
+}
+</script>
+<script>
+const servicesData = JSON.parse(document.getElementById('services-data').textContent);
+const barbersData = JSON.parse(document.getElementById('barbers-data').textContent);
 </script>
 <script src="{{ url_for('static', filename='js/book.js') }}"></script>
 {% endblock %}

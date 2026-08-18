@@ -923,7 +923,7 @@ em {
     transform: scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 18px rgba(107, 163, 226, 0.65));
+    filter: drop-shadow(0 0 18px rgba(229, 200, 133, 0.65));
     transform: scale(1.08);
   }
 }

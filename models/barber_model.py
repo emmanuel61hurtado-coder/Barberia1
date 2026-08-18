@@ -21,10 +21,6 @@ class Barber(db.Model):
     # Status
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     
-    # Timestamps
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
-    
     # Relationships
     appointments = db.relationship('Appointment', backref='barber', lazy='dynamic')
 

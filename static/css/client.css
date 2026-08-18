@@ -301,7 +301,7 @@ em {
 }
 .mobile-menu.open { display: block; }
 
-/* Diagonal speed lines background — gold on black */
+/* Diagonal speed lines background — blue on black */
 .mm-bg {
   position: absolute; inset: 0;
   background:
@@ -339,7 +339,7 @@ em {
   pointer-events: none;
 }
 
-/* Top gold glow border */
+/* Top blue glow border */
 .mm-glowline {
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg,
@@ -358,7 +358,7 @@ em {
   50% { opacity: 1; transform: scaleX(1.05); filter: blur(1px); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
 }
 
-/* Side gold accent */
+/* Side blue accent */
 .mm-glass::after {
   content: ''; position: absolute;
   right: 0; top: 10%; bottom: 10%; width: 1px;
@@ -379,7 +379,7 @@ em {
   display: flex; flex-direction: column;
 }
 
-/* Crown branding — intense gold glow */
+/* Crown branding — intense blue glow */
 .mm-brand {
   text-align: center; margin-bottom: 40px;
   opacity: 0; transform: translateY(-30px) scale(0.9);
@@ -469,7 +469,7 @@ em {
 .mobile-menu.open .mm-nav a:nth-child(6) { transition-delay: 0.38s; }
 .mobile-menu.open .mm-nav a:nth-child(7) { transition-delay: 0.44s; }
 
-/* Bottom gold underline on each link */
+/* Bottom blue underline on each link */
 .mm-nav a::after {
   content: ''; position: absolute;
   bottom: 0; left: 20px; right: 20px; height: 1px;
@@ -499,7 +499,7 @@ em {
   100% { transform: translate(0); }
 }
 
-/* Link number indicator — gold */
+/* Link number indicator — blue */
 .mm-nav a .mm-idx {
   font-size: 14px; font-weight: 700;
   color: rgba(74, 144, 226, 0.4);
@@ -509,7 +509,7 @@ em {
   transition: all 0.3s;
 }
 
-/* CTA — glossy black & gold button */
+/* CTA — glossy black & blue button */
 .mm-cta {
   margin-top: auto;
   border: 1px solid rgba(74, 144, 226, 0.25) !important;

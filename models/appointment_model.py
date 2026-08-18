@@ -32,7 +32,7 @@ class Appointment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    # Relationships are defined in related models using backref
+
 
     def __repr__(self):
         return f'<Appointment {self.client_name} - {self.appointment_date} {self.appointment_time}>'

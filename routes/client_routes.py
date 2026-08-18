@@ -1,20 +1,27 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from extensions import db
-from models.barber_model import Barber
-from models.service_model import Service
-from models.appointment_model import Appointment
-from models.review_model import Review
+from models import Barber, Service, Appointment, Review
 from datetime import datetime, date
+from config import Config
+import json
 
 client_bp = Blueprint('client', __name__)
 
 @client_bp.route('/')
 def index():
+    """Landing page with barbers, services, and reviews."""
     barbers = Barber.query.filter_by(is_active=True).all()
     services = Service.query.filter_by(is_active=True).all()
     reviews = Review.query.filter_by(is_active=True).order_by(Review.id).all()
     today = date.today().isoformat()
-    return render_template('client/index.html', barbers=barbers, services=services, reviews=reviews, today=today)
+    
+    return render_template(
+        'client/index.html',
+        barbers=barbers,
+        services=services,
+        reviews=reviews,
+        today=today
+    )
 
 @client_bp.route('/reservar', methods=['GET', 'POST'])
 def book():

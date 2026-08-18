@@ -339,7 +339,7 @@ em {
   pointer-events: none;
 }
 
-/* Top blue glow border */
+/* Top elegant gold glow border */
 .mm-glowline {
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg,
@@ -358,7 +358,7 @@ em {
   50% { opacity: 1; transform: scaleX(1.05); filter: blur(1px); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
 }
 
-/* Side blue accent */
+/* Side elegant gold accent */
 .mm-glass::after {
   content: ''; position: absolute;
   right: 0; top: 10%; bottom: 10%; width: 1px;

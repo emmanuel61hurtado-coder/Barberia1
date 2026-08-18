@@ -1,32 +1,40 @@
-/* ===== BLACK CROWN — CLIENT CSS (URBAN-ELEGANT REDESIGN) ===== */
+/* ===== BIGGIE MAKEOVER — CLIENT CSS (PROFESSIONAL GRAY EDITION) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800;900&display=swap');
 
 :root {
+  /* Main colors - Gray, Black, White */
+  --gray-mouse: #8A8A8A;
+  --gray-mouse-light: #A9A9A9;
+  --gray-mouse-dark: #6B6B6B;
+  --gray-mouse-dim: rgba(138, 138, 138, 0.15);
+  
   --black: #0a0a0a;
   --dark: #141414;
   --dark2: #1a1a1a;
   --dark3: #262626;
-  --border: rgba(255, 255, 255, 0.08);
-  --border2: rgba(255, 255, 255, 0.15);
   
-  /* Golden accent colors */
-  --gold: #D4AF37;
-  --gold2: #FFD700;
-  --gold-dim: rgba(212, 175, 55, 0.15);
-  --gold-glow: rgba(212, 175, 55, 0.4);
-  --white: #e5e5e5; 
-  --gray: #a3a3a3; 
-  --gray2: #525252; 
+  --white: #f5f5f5;
+  --white-dim: rgba(245, 245, 245, 0.9);
+  --white-accent: #ffffff;
+  
+  --border: rgba(138, 138, 138, 0.2);
+  --border2: rgba(138, 138, 138, 0.3);
+  
+  /* Subtle blue accent details */
+  --blue-accent: #4A90E2;
+  --blue-dim: rgba(74, 144, 226, 0.1);
+  --blue-glow: rgba(74, 144, 226, 0.3);
   
   --font-display: 'Barlow Condensed', sans-serif;
   --font-body: 'Barlow', sans-serif;
   --font-cond: 'Barlow Condensed', sans-serif;
   
-  /* Glossy / Metallic gradients */
-  --shiny-black: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
-  --shiny-black-hover: linear-gradient(135deg, #2a2a2a 0%, #141414 100%);
-  --metallic-grey: linear-gradient(90deg, #ffffff 0%, #888888 100%);
-  --gold-shine: linear-gradient(135deg, #FFD700 0%, #D4AF37 25%, #FFD700 50%, #B8860B 75%, #FFD700 100%);
+  /* Professional gradients */
+  --shiny-black: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%);
+  --shiny-black-hover: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%);
+  --gray-gradient: linear-gradient(135deg, #8A8A8A 0%, #6B6B6B 100%);
+  --gray-mouse-gradient: linear-gradient(135deg, #A9A9A9 0%, #8A8A8A 50%, #6B6B6B 100%);
+  --blue-subtle: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,16 +53,16 @@ body {
 a { color: inherit; text-decoration: none; }
 em {
   font-style: normal;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4a 25%, #ffd700 50%, #b8860b 75%, #ffd700 100%);
+  background: linear-gradient(135deg, #4A90E2 0%, #6BA3E8 25%, #4A90E2 50%, #357ABD 75%, #4A90E2 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
-  animation: emGoldFlow 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.15));
+  animation: emBlueFlow 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(74, 144, 226, 0.15));
 }
-@keyframes emGoldFlow {
+@keyframes emBlueFlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }

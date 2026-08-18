@@ -106,17 +106,25 @@ def appointments():
 @admin_bp.route('/citas/<int:appointment_id>/estado', methods=['POST'])
 @login_required
 def update_appointment_status(appointment_id):
+    """Update appointment status."""
     appointment = Appointment.query.get_or_404(appointment_id)
     new_status = request.form.get('status')
-    if new_status in ['pendiente', 'confirmada', 'completada', 'cancelada']:
+    
+    valid_statuses = ['pendiente', 'confirmada', 'completada', 'cancelada']
+    if new_status in valid_statuses:
         appointment.status = new_status
         db.session.commit()
         flash(f'Estado actualizado a: {appointment.status_label()}', 'success')
+    else:
+        flash('Estado inválido.', 'error')
+    
     return redirect(url_for('admin.appointments'))
+
 
 @admin_bp.route('/citas/<int:appointment_id>/eliminar', methods=['POST'])
 @login_required
 def delete_appointment(appointment_id):
+    """Delete an appointment."""
     appointment = Appointment.query.get_or_404(appointment_id)
     db.session.delete(appointment)
     db.session.commit()
@@ -126,12 +134,15 @@ def delete_appointment(appointment_id):
 @admin_bp.route('/barberos')
 @login_required
 def barbers():
+    """Barbers management page."""
     barbers = Barber.query.all()
     return render_template('admin/barbers.html', barbers=barbers)
+
 
 @admin_bp.route('/barberos/nuevo', methods=['GET', 'POST'])
 @login_required
 def new_barber():
+    """Create new barber."""
     if request.method == 'POST':
         name = request.form.get('name', '').strip()
         specialty = request.form.get('specialty', '').strip()
@@ -142,10 +153,14 @@ def new_barber():
             flash('El nombre es requerido.', 'error')
             return render_template('admin/barber_form.html', barber=None)
 
+        # Generate initials from name
         initials = ''.join([w[0].upper() for w in name.split()[:2]])
+        
         barber = Barber(
-            name=name, specialty=specialty,
-            experience_years=int(experience), bio=bio,
+            name=name,
+            specialty=specialty,
+            experience_years=int(experience),
+            bio=bio,
             avatar_initials=initials
         )
         db.session.add(barber)
@@ -155,10 +170,13 @@ def new_barber():
 
     return render_template('admin/barber_form.html', barber=None)
 
+
 @admin_bp.route('/barberos/<int:barber_id>/editar', methods=['GET', 'POST'])
 @login_required
 def edit_barber(barber_id):
+    """Edit existing barber."""
     barber = Barber.query.get_or_404(barber_id)
+    
     if request.method == 'POST':
         barber.name = request.form.get('name', barber.name).strip()
         barber.specialty = request.form.get('specialty', barber.specialty).strip()
@@ -166,20 +184,25 @@ def edit_barber(barber_id):
         barber.bio = request.form.get('bio', barber.bio).strip()
         barber.is_active = 'is_active' in request.form
         barber.avatar_initials = ''.join([w[0].upper() for w in barber.name.split()[:2]])
+        
         db.session.commit()
         flash('Barbero actualizado.', 'success')
         return redirect(url_for('admin.barbers'))
+    
     return render_template('admin/barber_form.html', barber=barber)
 
 @admin_bp.route('/servicios')
 @login_required
 def services():
+    """Services management page."""
     services = Service.query.all()
     return render_template('admin/services.html', services=services)
+
 
 @admin_bp.route('/servicios/nuevo', methods=['GET', 'POST'])
 @login_required
 def new_service():
+    """Create new service."""
     if request.method == 'POST':
         name = request.form.get('name', '').strip()
         description = request.form.get('description', '').strip()
@@ -192,8 +215,10 @@ def new_service():
             return render_template('admin/service_form.html', service=None)
 
         service = Service(
-            name=name, description=description,
-            price=float(price), duration_minutes=int(duration),
+            name=name,
+            description=description,
+            price=float(price),
+            duration_minutes=int(duration),
             category=category
         )
         db.session.add(service)
@@ -203,10 +228,13 @@ def new_service():
 
     return render_template('admin/service_form.html', service=None)
 
+
 @admin_bp.route('/servicios/<int:service_id>/editar', methods=['GET', 'POST'])
 @login_required
 def edit_service(service_id):
+    """Edit existing service."""
     service = Service.query.get_or_404(service_id)
+    
     if request.method == 'POST':
         service.name = request.form.get('name', service.name).strip()
         service.description = request.form.get('description', service.description).strip()
@@ -214,7 +242,9 @@ def edit_service(service_id):
         service.duration_minutes = int(request.form.get('duration_minutes', service.duration_minutes))
         service.category = request.form.get('category', service.category)
         service.is_active = 'is_active' in request.form
+        
         db.session.commit()
         flash('Servicio actualizado.', 'success')
         return redirect(url_for('admin.services'))
+    
     return render_template('admin/service_form.html', service=service)

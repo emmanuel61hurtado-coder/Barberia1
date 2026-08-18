@@ -160,6 +160,9 @@ def barbers():
 
 @client_bp.route('/api/horarios-disponibles')
 def available_slots():
+    """API endpoint to get available time slots for a barber on a specific date."""
+    from utils import generate_time_slots, get_available_slots
+    
     barber_id = request.args.get('barber_id')
     date_str = request.args.get('date')
     service_id = request.args.get('service_id')
@@ -173,38 +176,36 @@ def available_slots():
         return jsonify({'slots': []})
 
     # Get service duration
-    duration = 30
+    duration = Config.APPOINTMENT_SLOT_MINUTES
     if service_id:
         svc = Service.query.get(service_id)
         if svc:
             duration = svc.duration_minutes
 
-    all_slots = [
-        '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
-        '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
-        '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
-        '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
-        '20:00', '20:30', '21:00'
-    ]
+    # Generate all possible slots using config
+    all_slots = generate_time_slots(
+        Config.APPOINTMENT_SLOTS_START,
+        Config.APPOINTMENT_SLOTS_END,
+        Config.APPOINTMENT_SLOT_MINUTES
+    )
 
+    # Get booked appointments
     booked = Appointment.query.filter_by(
         barber_id=barber_id,
         appointment_date=selected_date
     ).filter(Appointment.status.in_(['pendiente', 'confirmada'])).all()
 
-    booked_times = [a.appointment_time for a in booked]
-    available = [s for s in all_slots if s not in booked_times]
+    # Get available slots
+    available = get_available_slots(int(barber_id), selected_date, booked, all_slots)
 
-    # Count booked for this barber today (for wait time estimation)
-    booked_count = len(booked_times)
-
+    # Get barber info
     barber = Barber.query.get(barber_id)
     barber_name = barber.name if barber else ''
 
     return jsonify({
         'slots': available,
         'duration': duration,
-        'booked_count': booked_count,
+        'booked_count': len(booked),
         'barber_name': barber_name,
         'total_slots': len(all_slots)
     })

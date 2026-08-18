@@ -1,16 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from extensions import db
-from models.admin_model import Admin
-from models.barber_model import Barber
-from models.service_model import Service
-from models.appointment_model import Appointment
+from models import Admin, Barber, Service, Appointment
 from datetime import datetime, date
 
 admin_bp = Blueprint('admin', __name__)
 
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """Admin login page."""
     if current_user.is_authenticated:
         return redirect(url_for('admin.dashboard'))
 
@@ -27,36 +25,45 @@ def login():
 
     return render_template('admin/login.html')
 
+
 @admin_bp.route('/logout')
 @login_required
 def logout():
+    """Admin logout."""
     logout_user()
     return redirect(url_for('admin.login'))
 
 @admin_bp.route('/dashboard')
 @login_required
 def dashboard():
+    """Admin dashboard with statistics and recent appointments."""
     today = date.today()
+    
+    # Statistics
     total_appointments = Appointment.query.count()
     today_appointments = Appointment.query.filter_by(appointment_date=today).count()
     pending = Appointment.query.filter_by(status='pendiente').count()
     completed = Appointment.query.filter_by(status='completada').count()
 
+    # Recent appointments
     recent_appointments = Appointment.query.order_by(
         Appointment.created_at.desc()
     ).limit(8).all()
 
+    # Today's appointments
     today_list = Appointment.query.filter_by(appointment_date=today).order_by(
         Appointment.appointment_time
     ).all()
 
+    # Total revenue from completed appointments
     total_revenue = db.session.query(
         db.func.sum(Service.price)
     ).join(Appointment, Appointment.service_id == Service.id).filter(
         Appointment.status == 'completada'
     ).scalar() or 0
 
-    return render_template('admin/dashboard.html',
+    return render_template(
+        'admin/dashboard.html',
         total_appointments=total_appointments,
         today_appointments=today_appointments,
         pending=pending,
@@ -69,6 +76,7 @@ def dashboard():
 @admin_bp.route('/citas')
 @login_required
 def appointments():
+    """Appointments management page with filtering."""
     status_filter = request.args.get('status', '')
     date_filter = request.args.get('date', '')
 
@@ -88,7 +96,8 @@ def appointments():
         Appointment.appointment_time
     ).all()
 
-    return render_template('admin/appointments.html',
+    return render_template(
+        'admin/appointments.html',
         appointments=appointments,
         status_filter=status_filter,
         date_filter=date_filter

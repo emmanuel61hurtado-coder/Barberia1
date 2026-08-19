@@ -31,7 +31,8 @@ class Appointment(db.Model):
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
-
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def __repr__(self):
         return f'<Appointment {self.client_name} - {self.appointment_date} {self.appointment_time}>'

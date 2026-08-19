@@ -24,6 +24,9 @@ class Barber(db.Model):
     # Relationships
     appointments = db.relationship('Appointment', backref='barber', lazy='dynamic')
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def __repr__(self):
         return f'<Barber {self.name}>'
     
